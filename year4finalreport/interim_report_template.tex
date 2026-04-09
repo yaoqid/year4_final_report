@@ -1,0 +1,159 @@
+\documentclass[12pt]{interim_report}
+\usepackage{amsmath,amsthm,graphicx}
+
+\title{Modelling terahertz pulse generation due to ultrafast photocurrents in semiconductors }
+\author{Yaoqi Dong, Yuhao Chang, Shenglong Li}
+\date{12 December 2025}
+\supervisor{Professor Oleg Mitrofanov }
+\aiuse{{\bf If you have not used generative AI make sure that {\tt\bf\textbackslash aiuse} is empty. Only edit and include text inside {\tt\bf\textbackslash aiuse} if you have used generative AI.}
+
+I acknowledge the use of name and version of generative AI system  Chat-GPT-  (Publisher OpenAI, URL of the AI system  \\https://chat.openai.com) to brief description of context in which AI tool was used to summarise my initial notes, help with LaTeX format and proofread my final draft.}
+\wordcount{4401}
+
+\begin{document}
+
+\coverpage
+\declaration
+\maketitle
+
+\tableofcontents
+\section{Introduction}
+The generation of terahertz radiation via the excitation of semiconductor surfaces with femtosecond laser pulses is a fundamental technique in modern photonics. This process relies on the acceleration of photo-generated carriers, where the resulting transient current acts as a Hertzian dipole source radiating electromagnetic waves into free space. While the physical mechanisms governing these currents—such as the Photo-Dember effect and surface depletion fields—are well-established in theoretical literature, the complex electrodynamics governing the subsequent propagation of the electric field often remain abstract and difficult to visualise.
+\newline
+The primary objective of this project is to bridge this gap by developing a dedicated simulation interface using MATLAB App Designer. Unlike standard numerical scripts, this graphical interface provides an interactive environment to model and visualise the generation of THz fields based on the method of Retarded Potentials. The specific motivation is to create a versatile tool that allows users to modify intrinsic semiconductor properties—such as carrier lifetime, diffusion coefficients, and absorption depth—to dynamically simulate the radiation characteristics of different materials. By transforming static theoretical equations into observable temporal waveforms and spatial vector maps, this interface serves as both a pedagogical tool for understanding surface emission physics and a predictive platform for optimising semiconductor materials in terahertz emitter design.
+\section{Work performed to-date}
+\subsection{Photo-Dember effect}
+The current work has mainly focused on the numerical modeling of ultrafast photogenerated carrier transport. My part mainly involves studying the ultrafast current mechanism of Photo-Dember caused by the asymmetry of electron-hole mobility. The model is based on the diffusion-recombination theory: a highly non-equilibrium carrier distribution is generated in the semiconductor by ultra-short laser pulses and then evolves under the driving force of spatial gradients and mobility differences. Existing literature has pointed out that the time derivative of the instantaneous photogenerated current is the main source of terahertz radiation\cite{Hebling:02}. Therefore, the numerical framework of this project is based on this physical principle.\newline
+First, a one-dimensional electron diffusion-composition model was constructed. By applying Gaussian excitation in both space and time, the expected carrier behavior was successfully simulated: rapid accumulation at the excitation center, symmetric diffusion over time, and exponential decay. The model output was consistent with the analytical expectations, verifying the stability and physical correctness of the numerical method.\newline
+Subsequently, the model was extended to two dimensions to reflect the circular symmetry of the real light spot. The two-dimensional results showed that the carriers diffused radially symmetrically and an electron density peak slightly delayed relative to the excitation peak appeared, which was consistent with the ultrafast carrier dynamics reported in the literature. Further, by calculating the gradient of the electron density, the corresponding diffusion current was obtained. The result presented a typical transient current structure that radiated outward radially, which was in line with the characteristics of the Photo-Dember current.\newline
+To enhance the physical accuracy of the model, additional holes were introduced and a double carrier coupling equation was constructed to reflect the mechanism of net current formation due to the difference in carrier mobilities between electrons and holes. The double carrier model shows that early transport is still dominated by electrons, while in the later stage, the spatial distribution of electrons and holes becomes more overlapping, resulting in a smoother overall carrier distribution, which is consistent with the existing experimental observations. Overall, the current work has established a verified numerical platform, laying a solid foundation for subsequent calculations of terahertz radiation based on transient currents.
+\begin{figure}[h]
+	\begin{center}
+	\includegraphics[width=14.5cm]{interim_report_latex_template (1)/figure/yuhao/image.png}
+	\caption{
+            Electron density heat map with vectors indicate current
+	}
+	\label{Electron density heat map with vectors indicate current} 
+	\end{center}
+\end{figure}
+\newpage
+\subsection{Electric field}
+\subsubsection{Background theory}
+The generation of terahertz radiation from ultrafast photocurrents is modelled using classical electrodynamics, where the source of the electromagnetic field is the time-varying current density, $\mathbf{J}(\mathbf{r}', t)$, distributed across the semiconductor surface. The radiated electric field $\mathbf{E}(\mathbf{r}, t)$ is derived using the method of retarded potentials and calculate use Jefimenko's equations. In the far-field approximation, where the observation distance $R$ is significantly larger than the source dimensions, the electrostatic and induction terms decay rapidly, leaving the radiative term as the dominant contribution. Consequently, the radiated electric field is directly proportional to the time derivative of the transverse current density\cite{SimulationTHz}.\newline
+To account for the finite propagation speed of light $c$, the field observed at position $\mathbf{r}$ at time $t$ depends on the state of the current source at the retarded time $t_{ret} = t - R/c$. The polarization and directionality of the radiation are governed by the vector projection of the current acceleration onto the plane perpendicular to the line of sight $\hat{\mathbf{R}}$. This relationship is mathematically expressed as:
+\begin{equation}
+    \mathbf{E}(\mathbf{r}, t) \approx \frac{\mu_0}{4\pi} \iint_{S} \frac{\hat{\mathbf{R}} \times [\hat{\mathbf{R}} \times \dot{\mathbf{J}}(\mathbf{r}', t_{ret})]}{R} \, dS'
+\end{equation}
+where $\dot{\mathbf{J}}$ represents the partial time derivative of the current density. This formulation ensures that only the transverse component of the acceleration contributes to the propagating wave.
+\newpage
+\subsubsection{Methods}
+The computational model discretises the semiconductor surface into a grid of elementary Hertzian dipoles. The calculation follows a three-step numerical algorithm. First, the time derivative of the current density, $\partial \mathbf{J}/\partial t$, is computed at each spatial grid point using a finite difference scheme. Second, since the calculated retarded time $t_{ret}$ does not generally align with discrete simulation steps, linear interpolation is employed to accurately estimate the current derivative at the exact retarded time. Finally, the principle of superposition is applied by summing the radiation contributions from all grid elements, weighted by the geometric decay factor $1/R$, to reconstruct the total temporal electric field waveform at the detector.
+\subsubsection{Intial results}
+The time-dependent behaviour of the radiated terahertz electric field was evaluated at a fixed far-field observation point located at $x = -20$ $\mu$m, $y = 30$ $\mu$m, $z = 10$ mm. Figure 2 presents the corresponding temporal traces of the $E_x$ and $E_y$ components. Both components display a distinctly bipolar pulse profile. This bipolar structure of the simulated field is in strong accordance with the theoretical model developed by Auston et al.\cite{auston_picosecond_1984}. In their pioneering study on picosecond photoconductors, Auston and co-workers showed that the far-field radiation produced by a transient current source is proportional to the first time derivative of the dipole moment, $\mathbf{E} \propto \dot{\mathbf{p}}(t)$. The results obtained here reproduce this anticipated behaviour: the leading positive part of the waveform is associated with the rapid rise of the photocurrent, whereas the following negative part is linked to the current decay. This confirms that the numerical implementation of the retarded potential accurately reflects the fundamental connection between carrier acceleration and electromagnetic radiation.
+\begin{figure}[b]
+	\begin{center}
+	\includegraphics[width=9.5cm]{interim_report_latex_template (1)/figure/yaoqqi/field2d.png}
+	\caption{
+		Temporal waveforms of the radiated THz electric field components $E_x(t)$ (top) and $E_y(t)$ (bottom) calculated at an observation point of $(-20 \mu\text{m}, 30 \mu\text{m}, 10 \text{mm})$.
+	}
+	\label{field2d} 
+	\end{center}
+\end{figure}
+\newpage
+To characterise the polarisation of the emitted beam, the instantaneous transverse vector field distribution in the $xy$-plane was examined at a propagation distance of $z = 5$ mm and a time of $t = 0.2$ ps. As illustrated in Figure 3, the electric field vectors display clear radial symmetry, directed outward from the propagation axis.
+\begin{figure}[h]
+	\begin{center}
+	\includegraphics[width=8.5cm]{interim_report_latex_template (1)/figure/yaoqqi/fielddistr.png}
+	\caption{
+		Instantaneous vector map of the THz electric field $(E_x, E_y)$ in the transverse plane at $z = 5$ mm. The field exhibits radial polarisation, consistent with the isotropic diffusion of photo-carriers from the excitation centre.
+	}
+	\label{fielddistr} 
+	\end{center}
+\end{figure}
+\subsection{Interface design}
+In this project I am mainly responsible for the design and implementation of an integrated MATLAB App Designer GUI that interfaces with our physics-based terahertz (THz) photocurrent simulation engine. The main goal is to provide a user-friendly, interactive platform that allows the user to configure material, excitation, and geometric parameters, execute the full 2D diffusion-recombination mode, and visualize the resulting carrier dynamics and THz waveforms.\newline
+I began by designing the overall GUI structure using a modular, panel-based layout. Four functional tabs were implemented, including Mechanism Selector, Numeric Fields, Excitation, and $E(t)$ position. These tabs allow users to select the physical mechanism (built-in field, photo-Dember effect, or both), adjust semiconductor parameters (mobility, lifetime, absorption depth, temperature), configure optical excitation (pulse width, fluence, spot size, incidence angle, pulse shape), and specify the THz observation point in 3D space. A separate 3D axes window is implemented to visualize the rectangular semiconductor and the laser beam geometry, including features like incidence-angle-dependent beam rotation. In addition, I developed callback functions that gather all GUI inputs, validate them, and package them into a structured parameter set for the simulation core. This includes converting fluence to peak intensity, mapping spot size to Gaussian waist, computing Einstein-relation diffusion coefficients, and applying incidence-angle correlations. The GUI now supports additional physics toggles that enable the photo-Dember current and built-in drift current to be selectively activated.\newline
+What’s more, I integrated the GUI with our simulation backend, which returns the carrier density evolution, peak-density spatial distribution, and the THz electric field waveform computed via time-derivative current radiation. These results are visualized in three coordinated plots, including central carrier density vs. time, carrier distribution at the peak time, and $\lvert E \rvert (t)$ waveform at a specific chosen observation point.\newline
+Finally, I added consistent axis labels, physical units $(\mathrm{V/m},\ \mathrm{m^{-3}},\ \mu\mathrm{m})$, dynamic titles, and error-handling alerts to ensure robustness and scientific clarity. The resulting GUI forms a complete front-end interface that successfully links user-defined physical parameters to THz emission simulations.
+\begin{figure}[h]
+	\begin{center}
+	\includegraphics[width=12.5cm]{interim_report_latex_template (1)/figure/shenglong/parameter.png}
+	\caption{
+		Parameters Selection Tabs
+	}
+	\label{Parameters Selection Tabs} 
+	\end{center}
+\end{figure}
+
+\begin{figure}[h]
+	\begin{center}
+	\includegraphics[width=12.5cm]{interim_report_latex_template (1)/figure/shenglong/3d.png}
+	\caption{
+		3D Semiconductor and Beam Visualization
+	}
+	\label{3D Semiconductor and Beam Visualization} 
+	\end{center}
+\end{figure}
+
+\begin{figure}[h]
+	\begin{center}
+	\includegraphics[width=12cm]{interim_report_latex_template (1)/figure/shenglong/central.png}
+	\caption{
+		Central Carrier Density Plot
+	}
+	\label{Central Carrier Density Plot} 
+	\end{center}
+\end{figure}
+
+\begin{figure}[b]
+	\begin{center}
+	\includegraphics[width=12cm]{interim_report_latex_template (1)/figure/shenglong/carrier.png}
+	\caption{
+		Carrier Distribution Plot at Peak Time
+	}
+	\label{Carrier Distribution Plot at Peak Time} 
+	\end{center}
+\end{figure}
+\begin{figure}[h]
+	\begin{center}
+	\includegraphics[width=12.5cm]{interim_report_latex_template (1)/figure/shenglong/Thz.png}
+	\caption{
+		THz Field at Specific Chosen Position and Incidence Angle
+	}
+	\label{THz Field at Specific Chosen Position and Incidence Angle} 
+	\end{center}
+\end{figure}
+
+\begin{figure}[h]
+	\begin{center}
+	\includegraphics[width=12.5cm]{interim_report_latex_template (1)/figure/shenglong/complete.png}
+	\caption{
+		Complete GUI Overview
+	}
+	\label{Complete GUI Overview} 
+	\end{center}
+\end{figure}
+\newpage
+\section{Project management}
+\subsection{Photo-Dmber model}
+Based on the current progress, I have achieved the original plan goals in the construction of one-dimensional, two-dimensional, and electrons-holes Photo-Dember numerical models. However, during the stage of model expansion and stability debugging, more time was spent than expected, resulting in some tasks being slightly delayed. The main risks come from the increase in computational load, high parameter sensitivity, and the dependence of model accuracy on grid and time step. Therefore, I have optimized the code structure and established a parameter testing process to reduce subsequent uncertainties. The important experience in this stage is to identify numerical bottlenecks earlier and adopt a progressive verification method, which will be used to improve the efficiency and reliability of the subsequent stages.
+\subsection{Electric field}
+The project is currently progressing as planned, with its primary goal being to successfully simulate a two-dimensional terahertz electric field using a vectorized mathematical model. While this simulated two-dimensional terahertz electric field effectively demonstrates the electric field distribution, integrating the computationally intensive simulation loop into the graphical user interface presents a significant technical risk, potentially leading to system unresponsiveness or lag. This is a substantial potential risk, as subsequent three-dimensional terahertz electric field simulations will require even greater data and computational demands. Furthermore, code interoperability has been challenging; code written by one colleague may be incomprehensible to others, necessitating a unified coding logic.
+\subsection{Interface design}
+Compared with the original plan, our project is generally on track. By Week 6, we finished the literature review and theoretical background, which built a strong base for the MATLAB model. The main progress so far is the design and implementation of the integrated MATLAB App Designer GUI. It now works well with the photocurrent simulation core, allowing users to set parameters, check inputs, and visualise results. This matches the GUI design and integration stage we planned for early Term 2, meaning we are slightly ahead in interface development but a bit behind in model validation because coupling carrier diffusion and recombination is more complex than expected.\newline
+Our team has worked well together with clear task division and regular progress meetings. We decided to focus on GUI-simulation integration earlier than planned to allow faster user testing. The main challenges are MATLAB’s limits in handling large 2D diffusion models and the need for better physics calibration. Next term, we will move on to validation, parameter sweeps, and far-field waveform analysis.
+
+\section{Future work}
+\subsection{Future work for Photo-Dember model}
+The current Photo-Dember model focuses on the formation of the Photo-Dember photocurrent through ultrafast carrier diffusion and recombination in two dimensions. In future work, this model will be extended to directly calculate the resulting time-dependent terahertz radiation field. In addition, the model will be generalised to investigate how terahertz emission depends on material parameters, including carrier mobility, diffusion coefficient, recombination lifetime, and absorption depth. This will enable a systematic comparison between different semiconductor materials such as InAs, GaAs, and InSb. Also, the numerical predictions of the Photo-Dember-induced terahertz emission will be compared with reported experimental measurements to validate the physical accuracy of the model and assess its predictive capability for terahertz source optimisation.
+\subsection{Future work for electric field observation}
+The next development phase will prioritize refactoring the code structure to enhance modularity and implement optimization strategies such as parallel computing to ensure interface stability. Furthermore, a thorough review of the existing codebase indicates a need to improve structural clarity so that other team members can better understand and modify the code. Building on the success of the 2D simulation, subsequent phases will expand the project scope to simulate complete 3D electric field distributions, ensuring adjustments to resource allocation to handle the inherently higher computational complexity of 3D simulations.
+\subsection{Future work for interface design}
+In Terms 2 and 3, I plan to improve the GUI to support the full physical model. The main tasks include adding both electron and hole transport, letting users choose Ex, Ey, and Ez components with the correct sign, and creating a dynamic colormap that shows how current changes over space and time. I will also expand the GUI to include validation features by comparing simulation results with data from published studies. In addition, I will design visual materials for the project poster and help with the volume-meshing visualisation when needed.
+\newpage
+\bibliography{example-references}
+\bibliographystyle{IEEEtran} % IEEE style
+
+
+
+\end{document}
