@@ -107,7 +107,7 @@ To enhance the physical accuracy of the model, additional holes were introduced 
 The numerical computation of the radiated electric field was implemented in MATLAB as a vectorised function that accepts the full three-component current density history $\mathbf{J}(\mathbf{r}', t) = [J_x, J_y, J_z]$ from the carrier transport model and returns the time-domain electric field waveform at a specified observation point. The computational model discretises the semiconductor surface into a grid of elementary Hertzian dipoles, and the total radiated field is obtained by coherently summing the retarded-time contributions from all source elements using the far-field approximation derived in Section~4.2.
 
 \subsubsection{Discretisation and Geometry}
-Figure~\ref{fig:geometry} illustrates the computational geometry. The semiconductor surface at $z = 0$ is represented by an $N_x \times N_y$ spatial grid spanning a domain of $L_x \times L_y = 1.5~\mathrm{mm} \times 1.5~\mathrm{mm}$, with the default resolution set to $N_x = N_y = 601$ grid points in the GUI implementation. Each grid cell at position $\mathbf{r}'_{ij}$ carries a time-varying current density $\mathbf{J}(\mathbf{r}'_{ij}, t_k)$ obtained from the diffusion-recombination solver. The observation point $\mathbf{r} = (X_0, Y_0, z_0)$ is placed in the far-field region, typically at $z_0 = 5$--$10$~mm above the surface. For each source cell, the displacement vector $\mathbf{R}_{ij} = \mathbf{r} - \mathbf{r}'_{ij}$ defines the distance $R_{ij} = |\mathbf{R}_{ij}|$ and the unit vector $\hat{\mathbf{R}}_{ij} = \mathbf{R}_{ij}/R_{ij}$, which determines both the retardation delay and the geometric projection of the radiated field. A singularity guard replaces any $R_{ij} = 0$ with machine epsilon to prevent numerical division errors.
+Figure~\ref{fig:geometry} illustrates the computational geometry. The semiconductor surface at $z = 0$ is represented by an $N_x \times N_y$ spatial grid spanning a domain of $L_x \times L_y = 1.5~\mathrm{mm} \times 1.5~\mathrm{mm}$, with the default resolution set to $N_x = N_y = 601$ grid points in the GUI implementation. Each grid cell at position $\mathbf{r}'_{ij}$ carries a time-varying current density $\mathbf{J}(\mathbf{r}'_{ij}, t_k)$ obtained from the diffusion-recombination solver. The observation point $\mathbf{r} = (X_0, Y_0, z_0)$ is placed in the far-field region, typically at $z_0 = 3$--$7$~mm above the surface. For each source cell, the displacement vector $\mathbf{R}_{ij} = \mathbf{r} - \mathbf{r}'_{ij}$ defines the distance $R_{ij} = |\mathbf{R}_{ij}|$ and the unit vector $\hat{\mathbf{R}}_{ij} = \mathbf{R}_{ij}/R_{ij}$, which determines both the retardation delay and the geometric projection of the radiated field. A singularity guard replaces any $R_{ij} = 0$ with machine epsilon to prevent numerical division errors.
 
 The surface integral in Equation~(\ref{eq:farfield}) is then approximated as a discrete sum over all source cells:
 \begin{equation}
@@ -115,7 +115,7 @@ The surface integral in Equation~(\ref{eq:farfield}) is then approximated as a d
     \label{eq:discrete}
 \end{equation}
 
-\begin{figure}[h]
+\begin{figure}[b]
     \centering
     \includegraphics[width=0.75\linewidth]{interim_report_latex_template (1)/figure/yaoqqi/figure_geometry_schematic.png}
     \caption{
@@ -149,6 +149,15 @@ The overall computational cost of the far-field calculation scales as $\mathcal{
 
 \begin{figure}[h]
     \centering
+    \includegraphics[width=0.85\linewidth]{interim_report_latex_template (1)/figure/yaoqqi/figure_algorithm_flowchart.png}
+    \caption{
+        Flowchart of the three-stage far-field electric field computation algorithm. The input current density $\mathbf{J}(x_i, y_j, t_k)$ from the carrier transport model is first differentiated in time (Stage~1, central finite differences) to obtain the radiation source term $\dot{\mathbf{J}}$. For each observation time, the retarded time at every source cell is computed and the derivative is interpolated between discrete time steps (Stage~2). The transverse projection is then evaluated using the BAC-CAB vector identity (Stage~3). All contributions are summed via superposition to produce the output THz electric field waveform $\mathbf{E}(t)$ at the detector position.
+    }
+    \label{fig:flowchart}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
     \includegraphics[width=0.75\linewidth]{interim_report_latex_template (1)/figure/yaoqqi/figure_dJdt_snapshot.png}
     \caption{
         Snapshot of the time derivative of the current density $|\partial \mathbf{J}/\partial t|$ across the semiconductor surface at the time of peak current acceleration ($t \approx -0.03$~ps). The heatmap shows the magnitude distribution, which forms a characteristic ring pattern centred on the excitation spot, reflecting the steepest carrier density gradients at the flanks of the Gaussian beam. The white arrows indicate the direction of $\dot{\mathbf{J}}$, confirming radially outward current acceleration consistent with the isotropic Photo-Dember diffusion mechanism. The negative time indicates that peak current acceleration occurs on the rising edge of the femtosecond laser pulse, before the optical intensity reaches its maximum at $t = 0$.
@@ -156,14 +165,6 @@ The overall computational cost of the far-field calculation scales as $\mathcal{
     \label{fig:dJdt}
 \end{figure}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.85\linewidth]{interim_report_latex_template (1)/figure/yaoqqi/figure_algorithm_flowchart.png}
-    \caption{
-        Flowchart of the three-stage far-field electric field computation algorithm. The input current density $\mathbf{J}(x_i, y_j, t_k)$ from the carrier transport model is first differentiated in time (Stage~1, central finite differences) to obtain the radiation source term $\dot{\mathbf{J}}$. For each observation time, the retarded time at every source cell is computed and the derivative is interpolated between discrete time steps (Stage~2). The transverse projection is then evaluated using the BAC-CAB vector identity (Stage~3). All contributions are summed via superposition to produce the output THz electric field waveform $\mathbf{E}(t)$ at the detector position.
-    }
-    \label{fig:flowchart}
-\end{figure}
 
 \subsection{MATLAB GUI Interface Design}
 In this project, an integrated MATLAB App Designer GUI was designed and implemented to interface with the physics-based terahertz (THz) photocurrent simulation engine. The main goal is to provide a user-friendly, interactive platform that allows the user to configure material, excitation, and geometric parameters, execute the full 2D diffusion-recombination mode, and visualize the resulting carrier dynamics and THz waveforms.\newline
