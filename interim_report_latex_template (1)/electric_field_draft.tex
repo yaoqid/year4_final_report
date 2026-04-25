@@ -103,15 +103,15 @@ To verify the correctness of the numerical framework, the simulation was benchma
 To reproduce this result, the simulation was configured with material parameters matching the Fe:InGaAs sample and the excitation geometry described in~\cite{Mueckstein2015}. The carrier transport was solved using the diffusion-recombination model (Equation~\ref{eq:diffusion}), and the far-field electric field was computed at observation angles $\theta_1 = 15.4^{\circ}$, $20^{\circ}$, $30^{\circ}$, $32^{\circ}$, $40^{\circ}$, $47^{\circ}$, $60^{\circ}$, $75^{\circ}$, and $90^{\circ}$ using the retarded potential framework (Equation~\ref{eq:discrete}). At each angle, the peak-to-peak amplitude of the simulated THz waveform was extracted and normalised to the maximum value.
 
 % TODO: Insert figure here showing the comparison polar plot
-% \begin{figure}[h]
-% 	\begin{center}
-% 	\includegraphics[width=9cm]{figure/yaoqi_verification.png}
-% 	\caption{
-% 		Normalised angular emission pattern $E_{\mathrm{pp}}(\theta_1)$ from the simulation (blue circles), compared with the experimental data from Fig.~8(b) of Mueckstein et al.~\cite{Mueckstein2015} (dashed line). The polar plot shows the peak-to-peak THz field amplitude as a function of emission angle above the semiconductor surface.
-% 	}
-% 	\label{fig:verification}
-% 	\end{center}
-% \end{figure}
+ \begin{figure}[h]
+ 	\begin{center}
+ 	\includegraphics[width=9cm]{interim_report_latex_template (1)/figure/yaoqqi/angle.png}
+ 	\caption{
+ 		Normalised angular emission pattern $E_{\mathrm{pp}}(\theta_1)$ from the simulation (blue circles), compared with the experimental data from Fig.~8(b) of Mueckstein et al.~\cite{Mueckstein2015} (dashed line). The polar plot shows the peak-to-peak THz field amplitude as a function of emission angle above the semiconductor surface.
+ 	}
+ 	\label{fig:verification}
+ 	\end{center}
+ \end{figure}
 
 The simulated emission pattern shows good agreement with the published experimental data. The key features are faithfully reproduced: the amplitude peaks near $\theta_1 \approx 20^{\circ}$, decreases monotonically at larger angles, and falls to zero at $\theta_1 = 90^{\circ}$. The null at $\theta_1 = 0^{\circ}$ is an intrinsic consequence of the radial symmetry of the in-plane current distribution and the transverse nature of electromagnetic radiation. This agreement validates both the carrier transport model and the far-field radiation computation, confirming that the numerical implementation of the retarded potential framework correctly captures the angular radiation characteristics of photo-excited semiconductor surfaces. Notably, this verification also supports the conclusion of Mueckstein et al. that the in-plane photo-currents—rather than the normal-direction surface field current—dominate the THz emission process for narrow-bandgap semiconductors such as InGaAs and InAs~\cite{Mueckstein2015}.
 
