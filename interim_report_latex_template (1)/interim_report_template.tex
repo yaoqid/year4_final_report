@@ -104,24 +104,55 @@ Subsequently, the model was extended to two dimensions to reflect the circular s
 To enhance the physical accuracy of the model, additional holes were introduced and a double carrier coupling equation was constructed to reflect the mechanism of net current formation due to the difference in carrier mobilities between electrons and holes. The double carrier model shows that early transport is still dominated by electrons, while in the later stage, the spatial distribution of electrons and holes becomes more overlapping, resulting in a smoother overall carrier distribution, which is consistent with the existing experimental observations.
 
 \subsection{Electric Field Computation}
-\subsection{Electric Field Theory}
-\begin{figure}
+The computational model discretises the semiconductor surface into a grid of elementary Hertzian dipoles, as illustrated in Figure~\ref{fig:geometry}. The radiated electric field at a chosen observation point is computed by evaluating the surface integral in Equation~(\ref{eq:farfield}) as a discrete sum over the $N_x \times N_y$ source grid:
+\begin{equation}
+    \mathbf{E}(\mathbf{r}, t_k) \approx \frac{\mu_0}{4\pi} \sum_{i=1}^{N_x} \sum_{j=1}^{N_y} \frac{\hat{\mathbf{R}}_{ij} \times \left[\hat{\mathbf{R}}_{ij} \times \dot{\mathbf{J}}(\mathbf{r}'_{ij}, t_{\mathrm{ret},ij})\right]}{R_{ij}} \, \Delta x \, \Delta y.
+    \label{eq:discrete}
+\end{equation}
+
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\linewidth]{interim_report_latex_template (1)//figure//yaoqqi/figure_geometry_schematic.png}
-    \caption{Enter Caption}
-    \label{fig:placeholder}
+    \includegraphics[width=0.75\linewidth]{interim_report_latex_template (1)/figure/yaoqqi/figure_geometry_schematic.png}
+    \caption{
+        Schematic of the far-field radiation geometry. The semiconductor surface at $z = 0$ is discretised into an $N_x \times N_y$ grid of source cells. Each cell carries a time-varying current density $\dot{\mathbf{J}}$. The radiated electric field at the observation point $\mathbf{r}$ is obtained by summing retarded-time contributions from all source elements, where $R_{ij}$ is the distance and $\hat{\mathbf{R}}_{ij}$ the unit vector from source to observer.
+    }
+    \label{fig:geometry}
 \end{figure}
-\begin{figure}
+
+The implementation proceeds through three stages, summarised in the flowchart of Figure~\ref{fig:flowchart}.\newline
+\textbf{Stage 1: Temporal derivative.} The time derivative $\dot{\mathbf{J}}$ is computed for all three components at every spatial grid point using a second-order central finite difference:
+\begin{equation}
+    \dot{J}_x(x_i, y_j, t_k) = \frac{J_x(x_i, y_j, t_{k+1}) - J_x(x_i, y_j, t_{k-1})}{2\Delta t},
+\end{equation}
+applied identically to $J_y$ and $J_z$. Boundary time steps ($k=1$ and $k=N_t$) are set to zero. Figure~\ref{fig:dJdt} shows a representative snapshot of the resulting $|\dot{\mathbf{J}}|$ distribution across the source grid, displaying the characteristic radially symmetric pattern driven by the Photo-Dember diffusion current.\newline
+\textbf{Stage 2: Geometry and retarded time.} For each source cell $(i,j)$, the displacement vector from source to observer is computed as $\mathbf{R}_{ij} = \mathbf{r} - \mathbf{r}'_{ij}$, yielding the distance $R_{ij} = |\mathbf{R}_{ij}|$ and unit vector $\hat{\mathbf{R}}_{ij}$. The retarded time is then $t_{\mathrm{ret},ij} = t_k - R_{ij}/c$, which is converted to a fractional array index $\tau = (t_{\mathrm{ret}} - t_1)/\Delta t + 1$. Since $\tau$ generally falls between two discrete time steps, linear interpolation is applied:
+\begin{equation}
+    \dot{\mathbf{J}}_{\mathrm{ret}} = (1 - \alpha)\,\dot{\mathbf{J}}(\mathbf{r}'_{ij}, t_{\lfloor\tau\rfloor}) + \alpha\,\dot{\mathbf{J}}(\mathbf{r}'_{ij}, t_{\lfloor\tau\rfloor+1}),
+\end{equation}
+where $\alpha = \tau - \lfloor\tau\rfloor$. Source cells whose retarded time falls outside the simulation window contribute zero.\newline
+\textbf{Stage 3: Cross product and accumulation.} The double cross product in Equation~(\ref{eq:discrete}) is evaluated efficiently using the BAC-CAB vector identity:
+\begin{equation}
+    \hat{\mathbf{R}} \times [\hat{\mathbf{R}} \times \dot{\mathbf{J}}] = (\hat{\mathbf{R}} \cdot \dot{\mathbf{J}})\,\hat{\mathbf{R}} - \dot{\mathbf{J}},
+\end{equation}
+which avoids explicitly computing two sequential cross products. Each transverse component is then divided by $R_{ij}$, multiplied by the area element $\Delta x\,\Delta y$, and summed over all source cells using fully vectorised MATLAB array operations.\newline
+The overall computational cost scales as $\mathcal{O}(N_x \cdot N_y \cdot N_t)$ per observation point. For the typical parameters used in this project ($N_x = N_y = 100$, $N_t \approx 800$), single-point waveform calculations complete within seconds. To generate transverse field maps at a fixed propagation distance, the computation is repeated over a grid of observation points.
+
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\linewidth]{interim_report_latex_template (1)//figure//yaoqqi/figure_dJdt_snapshot.png}
-    \caption{Enter Caption}
-    \label{fig:placeholder}
+    \includegraphics[width=0.75\linewidth]{interim_report_latex_template (1)/figure/yaoqqi/figure_dJdt_snapshot.png}
+    \caption{
+        Snapshot of the time derivative of the current density $|\partial \mathbf{J}/\partial t|$ across the semiconductor surface at the time of peak current acceleration. The heatmap shows the magnitude, while the white arrows indicate the direction of $\dot{\mathbf{J}}$. The radially symmetric pattern reflects the isotropic Photo-Dember diffusion current, which serves as the source term for the far-field radiation integral.
+    }
+    \label{fig:dJdt}
 \end{figure}
-\begin{figure}
+
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.85\linewidth]{interim_report_latex_template (1)/figure/yaoqqi/figure_algorithm_flowchart.png}
-    \caption{Enter Caption}
-    \label{fig:placeholder}
+    \caption{
+        Flowchart of the three-stage far-field electric field computation algorithm. Stage~1 computes the temporal derivative of the current density using central finite differences. Stage~2 maps each observation time to the corresponding retarded time at each source cell and interpolates $\dot{\mathbf{J}}$ between discrete time steps. Stage~3 evaluates the transverse projection via the BAC-CAB identity. The contributions from all source cells are summed to yield the THz waveform $\mathbf{E}(t)$ at the detector.
+    }
+    \label{fig:flowchart}
 \end{figure}
 
 \subsection{MATLAB GUI Interface Design}
