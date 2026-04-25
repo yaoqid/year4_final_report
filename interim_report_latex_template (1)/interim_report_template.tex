@@ -65,7 +65,6 @@ The primary objective of this project is to bridge this gap by developing a dedi
 The model is based on the diffusion-recombination theory: a highly non-equilibrium carrier distribution is generated in the semiconductor by ultra-short laser pulses and then evolves under the driving force of spatial gradients and mobility differences. Existing literature has pointed out that the time derivative of the instantaneous photogenerated current is the main source of terahertz radiation~\cite{Hebling:02}. Recent comprehensive reviews of ultrafast carrier dynamics in terahertz photoconductors have further highlighted the central role of sub-picosecond transport phenomena in governing THz emission efficiency~\cite{Lu2022}. Therefore, the numerical framework of this project is based on this physical principle.
 
 \subsection{Electric Field Theory}
-
 \subsubsection{From Photocurrent to Electromagnetic Radiation}
 The fundamental link between ultrafast photocurrents and terahertz emission lies in classical electrodynamics. When a femtosecond laser pulse excites a semiconductor surface, it generates a transient current density $\mathbf{J}(\mathbf{r}', t)$ through mechanisms such as the Photo-Dember effect and surface depletion field drift. Since this current varies on a sub-picosecond timescale, it radiates electromagnetic energy in the terahertz frequency range~\cite{Yang2023}. This principle was first experimentally verified by Auston et al.~\cite{auston_picosecond_1984}, who demonstrated that the far-field radiation from a transient current source is proportional to the first time derivative of the dipole moment. Recent studies have further shown that similar transient photocurrent mechanisms drive THz emission in semiconductor heterostructures, where ballistic photocurrents across band offsets produce measurable radiation pulses~\cite{Malevich2021}. The theoretical framework employed in this project treats each infinitesimal current element on the semiconductor surface as a Hertzian dipole, and the total radiated field is obtained by superposition, following the approach of Johnston et al.~\cite{SimulationTHz}.
 
@@ -105,7 +104,25 @@ Subsequently, the model was extended to two dimensions to reflect the circular s
 To enhance the physical accuracy of the model, additional holes were introduced and a double carrier coupling equation was constructed to reflect the mechanism of net current formation due to the difference in carrier mobilities between electrons and holes. The double carrier model shows that early transport is still dominated by electrons, while in the later stage, the spatial distribution of electrons and holes becomes more overlapping, resulting in a smoother overall carrier distribution, which is consistent with the existing experimental observations.
 
 \subsection{Electric Field Computation}
-The computational model discretises the semiconductor surface into a grid of elementary Hertzian dipoles. The calculation follows a three-step numerical algorithm. First, the time derivative of the current density, $\partial \mathbf{J}/\partial t$, is computed at each spatial grid point using a finite difference scheme. Second, since the calculated retarded time $t_{ret}$ does not generally align with discrete simulation steps, linear interpolation is employed to accurately estimate the current derivative at the exact retarded time. Finally, the principle of superposition is applied by summing the radiation contributions from all grid elements, weighted by the geometric decay factor $1/R$, to reconstruct the total temporal electric field waveform at the detector.
+\subsection{Electric Field Theory}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{interim_report_latex_template (1)//figure//yaoqqi/figure_geometry_schematic.png}
+    \caption{Enter Caption}
+    \label{fig:placeholder}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{interim_report_latex_template (1)//figure//yaoqqi/figure_dJdt_snapshot.png}
+    \caption{Enter Caption}
+    \label{fig:placeholder}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.85\linewidth]{interim_report_latex_template (1)/figure/yaoqqi/figure_algorithm_flowchart.png}
+    \caption{Enter Caption}
+    \label{fig:placeholder}
+\end{figure}
 
 \subsection{MATLAB GUI Interface Design}
 In this project, an integrated MATLAB App Designer GUI was designed and implemented to interface with the physics-based terahertz (THz) photocurrent simulation engine. The main goal is to provide a user-friendly, interactive platform that allows the user to configure material, excitation, and geometric parameters, execute the full 2D diffusion-recombination mode, and visualize the resulting carrier dynamics and THz waveforms.\newline
