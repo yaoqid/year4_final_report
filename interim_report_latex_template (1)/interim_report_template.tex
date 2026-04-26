@@ -1,5 +1,6 @@
 \documentclass[12pt]{interim_report}
 \usepackage{amsmath,amsthm,graphicx,subcaption}
+\usepackage{booktabs}
 
 \title{Modelling terahertz pulse generation due to ultrafast photocurrents in semiconductors }
 \author{Yaoqi Dong, Yuhao Chang, Shenglong Li}
@@ -49,14 +50,7 @@ The primary objective of this project is to bridge this gap by developing a dedi
 %% ============================================================
 %% PROJECT GOALS
 %% ============================================================
-\section{Project Goals}
-% TODO: Clearly state the goals/objectives of the project.
-% - What are you trying to achieve?
-% - What are the specific deliverables?
 
-%% ============================================================
-%% TECHNICAL BACKGROUND
-%% ============================================================
 \section{Technical Background}
 
 \subsection{Photo-Dember Effect}
@@ -321,25 +315,9 @@ The relative amplitudes of the two components reflect the off-axis observer posi
 	\label{fig:ExEy}
 \end{figure}
 
-\subsubsection{Radial Polarisation}
-To characterise the polarisation of the emitted beam, the instantaneous transverse vector field distribution in the $xy$-plane was examined at a propagation distance of $z = 5$~mm and a time of $t = 0.2$~ps, corresponding to the instant of peak field magnitude. As illustrated in Figure~\ref{fig:fielddistr}, the electric field vectors display clear radial symmetry, directed outward from the propagation axis at all azimuthal angles. This pattern is a direct and expected consequence of the isotropic Photo-Dember diffusion mechanism: because the Gaussian optical excitation is circularly symmetric, the carrier density gradient $\nabla n$ points radially outward at every point on the surface, producing a radially directed current $\mathbf{J} = -qD\nabla n$ and hence a radially polarised far-field~\cite{Reklaitis2010,Klatt2010}.
-
-The vector magnitudes decrease toward the beam axis, reaching a minimum at the centre. This on-axis null occurs because the transverse projections of $\dot{\mathbf{J}}$ from diametrically opposite source cells cancel by symmetry when the observer lies directly above the excitation centre. Physically, this means that no THz radiation is emitted along the surface normal, a prediction that is directly testable by measuring the angular emission pattern.
-
-\begin{figure}[t]
-	\begin{center}
-	\includegraphics[width=8.5cm]{interim_report_latex_template (1)/figure/yaoqqi/fielddistr.png}
-	\caption{
-		Instantaneous vector map of $(E_x, E_y)$ in the transverse plane at $z = 5$~mm and $t = 0.2$~ps. The radially outward pattern confirms isotropic Photo-Dember diffusion as the dominant source mechanism.
-	}
-	\label{fig:fielddistr}
-	\end{center}
-\end{figure}
-
 \subsubsection{Angular Emission Pattern and Experimental Validation}
 The on-axis null observed in the polarisation map motivates a quantitative investigation of the angular dependence of the radiated field. To validate the simulated far-field radiation pattern, the angular response was compared with the experimental data presented in Fig.~8(b) of Mueckstein et al.~\cite{Mueckstein2015}, who measured the peak-to-peak THz amplitude emitted from Fe:InGaAs surfaces excited at normal incidence with a 250~$\mu$m-diameter beam at 800~nm.
 
-\paragraph{Methodology.}
 The lateral observation position was fixed at $X_0 = 3.2$~mm while the vertical position $Z_0$ was varied to sweep the observation angle
 \begin{equation}
     \theta_1 = \tan^{-1}\!\left(\frac{X_0}{Z_0}\right),
@@ -359,56 +337,54 @@ The corrected values were then normalised by their maximum:
     E_{\mathrm{pp,norm}} = \frac{E_{\mathrm{pp,corr}}}{\max(E_{\mathrm{pp,corr}})}.
 \end{equation}
 
-\paragraph{Results.}
 Table~\ref{tab:angular} lists the distance-corrected and normalised peak-to-peak amplitudes for 19 observation angles spanning $18^\circ$ to $90^\circ$. The resulting angular emission pattern is plotted in Figure~\ref{fig:angular_sim}.
 
-\begin{table}[t]
+\begin{table}[h]
 \centering
 \caption{Distance-corrected and normalised far-field peak-to-peak amplitude $E_{\mathrm{pp}}$ using the $E_x$ component. The maximum corrected amplitude occurs at $\theta_1 = 28^\circ$.}
 \label{tab:angular}
 \small
-\begin{tabular}{r r r}
-\hline
+\begin{tabular}{r r r r r r}
+\toprule
+$\theta_1$ (deg) & $E_{\mathrm{pp,corr}}$ & $E_{\mathrm{pp,norm}}$
+&
 $\theta_1$ (deg) & $E_{\mathrm{pp,corr}}$ & $E_{\mathrm{pp,norm}}$ \\
-\hline
-18 & 247.32 & 0.927 \\
-20 & 253.06 & 0.949 \\
-22 & 257.68 & 0.966 \\
-25 & 263.70 & 0.989 \\
-28 & 266.67 & 1.000 \\
-30 & 264.09 & 0.990 \\
-32 & 261.33 & 0.980 \\
-35 & 253.48 & 0.951 \\
-40 & 243.07 & 0.912 \\
-45 & 226.74 & 0.850 \\
-50 & 205.36 & 0.770 \\
-55 & 184.17 & 0.691 \\
-60 & 160.77 & 0.603 \\
-65 & 135.38 & 0.508 \\
-70 & 108.89 & 0.408 \\
-75 & 82.76  & 0.310 \\
-80 & 55.48  & 0.208 \\
-85 & 27.83  & 0.104 \\
-90 & 0.00   & 0.000 \\
-\hline
+\midrule
+18 & 247.32 & 0.927 & 50 & 205.36 & 0.770 \\
+20 & 253.06 & 0.949 & 55 & 184.17 & 0.691 \\
+22 & 257.68 & 0.966 & 60 & 160.77 & 0.603 \\
+25 & 263.70 & 0.989 & 65 & 135.38 & 0.508 \\
+28 & 266.67 & 1.000 & 70 & 108.89 & 0.408 \\
+30 & 264.09 & 0.990 & 75 & 82.76  & 0.310 \\
+35 & 253.48 & 0.951 & 80 & 55.48  & 0.208 \\
+40 & 243.07 & 0.912 & 85 & 27.83  & 0.104 \\
+45 & 226.74 & 0.850 & 90 & 0.00   & 0.000 \\
+\bottomrule
 \end{tabular}
 \end{table}
 
-\begin{figure}[t]
+\begin{figure}[b]
+    \centering
+    \includegraphics[width=0.55\linewidth]{interim_report_latex_template (1)/figure/yaoqqi/different_observation_angles.png}
+    \caption{Simulated time-domain THz waveforms detected at selected observation angles. The fixed $E_x$ component was used as the detector-like signal.
+    }
+    \label{fig:pulse_detected}
+\end{figure}
+
+\begin{figure}[b]
     \centering
     \includegraphics[width=0.55\linewidth]{interim_report_latex_template (1)/figure/yaoqqi/result1.png}
     \caption{
-        Simulated far-field angular emission pattern. The normalised, distance-corrected peak-to-peak amplitude $E_{\mathrm{pp,norm}}$ is plotted as a function of the emission angle $\theta_1$ from the surface normal. The pattern peaks at $28^\circ$ and falls to zero at $\theta_1 = 90^\circ$.
+        Simulated far-field angular emission pattern. The normalised peak-to-peak amplitude $E_{\mathrm{pp,norm}}$ is plotted as a function of the emission angle $\theta_1$ from the surface normal.
     }
     \label{fig:angular_sim}
 \end{figure}
 
-\paragraph{Comparison with experiment.}
 The simulated pattern exhibits the characteristic features of in-plane dipole radiation: negligible emission near the surface normal, a broad maximum centred at $\theta_1 \approx 28^\circ$, and a monotonic decrease toward grazing incidence. These features are in close qualitative agreement with the experimental data of Mueckstein et al.~\cite{Mueckstein2015}, where the measured emission from Fe:InGaAs peaks in the range $20^\circ$--$30^\circ$ and vanishes along the surface normal.
 
 The null at $\theta_1 = 0^\circ$ arises because the radially symmetric photo-Dember source produces equal and opposite transverse field contributions from diametrically opposite source cells, which cancel exactly along the symmetry axis, as predicted by the double cross product in Equation~(\ref{eq:farfield}). The broad peak at intermediate angles reflects the trade-off between two competing geometric effects: at small angles the transverse projection of $\dot{\mathbf{J}}$ is weak, while at large angles the oblique path through the source increases $R$ and reduces the solid angle subtended by the detector.
 
-The simulated peak angle of $28^\circ$ is slightly higher than the experimental value of approximately $20^\circ$--$25^\circ$. Several factors contribute to this discrepancy. First, the simulation uses InAs material parameters with electron mobility $\mu_e = 3.3$~m$^2$/Vs, whereas the experiment was performed on Fe-doped InGaAs, which has a lower mobility due to iron compensation and a different absorption depth at 800~nm. Second, the simulation employs a drift-diffusion model for carrier transport, which does not capture ballistic effects in the first few hundred femtoseconds after excitation when carriers retain their initial photo-excited momentum. Third, the model does not account for refraction at the semiconductor--air interface, which would redirect the emission toward smaller angles due to Snell's law at the high-index boundary. Despite these simplifications, the overall agreement in the shape of the angular pattern, with its on-axis null, off-axis peak, and gradual roll-off, validates the retarded-potential framework as a physically meaningful model for far-field THz emission from semiconductor surfaces.
+The simulated peak angle of $28^\circ$ is slightly higher than the experimental value of approximately $20^\circ$--$25^\circ$. Several factors contribute to this discrepancy. First, the simulation uses InAs material parameters with electron mobility $\mu_e = 0.8$~m$^2$/Vs, whereas the experiment was performed on Fe-doped InGaAs, which has a lower mobility due to iron compensation and a different absorption depth at 800~nm. Second, the simulation employs a drift-diffusion model for carrier transport, which does not capture ballistic effects in the first few hundred femtoseconds after excitation when carriers retain their initial photo-excited momentum. Third, the model does not account for refraction at the semiconductor--air interface, which would redirect the emission toward smaller angles due to Snell's law at the high-index boundary. Despite these simplifications, the overall agreement in the shape of the angular pattern, with its on-axis null, off-axis peak, and gradual roll-off, validates the retarded-potential framework as a physically meaningful model for far-field THz emission from semiconductor surfaces.
 
 \subsection{GUI Interface Results}
 % TODO: Present the GUI results with critical evaluation.
