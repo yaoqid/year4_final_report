@@ -417,6 +417,41 @@ Figure~\ref{fig:custom_validation} compares the $E_x$ component produced by the 
 	\caption{Comparison of the $E_x$ waveform produced by (a)~the Custom mechanism with \texttt{Jz~=~-n} and (b)~the standard Built-In Field mode. The waveform shapes are identical; the amplitude difference ($\times 10^{23}$ vs $\times 10^{4}$) reflects the omitted physical prefactors $q\mu_e E_z$ in the Custom expression.}
 	\label{fig:custom_validation}
 \end{figure}
+
+An analogous test was performed for the Photo-Dember mechanism. In this case, the THz-generating current arises from the lateral diffusion of photo-generated carriers. Because electrons and holes have different mobilities, they diffuse at different rates, producing a net lateral current proportional to the spatial gradient of the carrier density. The net Photo-Dember current for the $x$-component is
+\begin{equation}
+    J_x(x,y,t) = q(D_e - D_h)\frac{\partial n}{\partial x},
+    \label{eq:Jx_dember}
+\end{equation}
+where $D_e$ and $D_h$ are the electron and hole diffusion coefficients respectively. The positive sign arises because the electron charge is negative: the electron particle flux is $\boldsymbol{\Gamma}_e = -D_e \nabla n$ (down the gradient), but the corresponding current is $\mathbf{J}_e = -q\boldsymbol{\Gamma}_e = qD_e \nabla n$ (opposite to the particle flow). The hole current $\mathbf{J}_h = -qD_h \nabla p$ partially cancels the electron contribution, leaving a net current proportional to $(D_e - D_h)\nabla n$. An identical expression applies to $J_y$ with $\partial n/\partial y$, while $J_z = 0$ since the Photo-Dember effect produces no vertical current.
+
+This proportionality to the carrier density gradient means that the Photo-Dember mode can be reproduced in Custom mode by entering:
+\begin{center}
+\texttt{Jx = dnx}, \quad \texttt{Jy = dny}, \quad \texttt{Jz = 0}
+\end{center}
+where \texttt{dnx} and \texttt{dny} are the spatial gradients $\partial n/\partial x$ and $\partial n/\partial y$ provided by the simulation engine. The physical prefactors $q$ and $(D_e - D_h)$ are omitted, so the output amplitude will differ by a corresponding scale factor.
+
+Figure~\ref{fig:custom_dember} compares the $E_x$ waveform from the two modes. The waveform shapes are again identical: the same bipolar pulse with matching zero-crossing time, lobe ratio, and temporal width. The amplitude differs by a factor of approximately $10^{20}$, consistent with the missing prefactor $q(D_e - D_h) \approx 1.6 \times 10^{-19} \times (0.021 - 0.0026) \approx 3 \times 10^{-21}$~C\,m$^2$/s. Together with the Built-In Field validation above, this confirms that the Custom mechanism parser correctly handles both lateral gradient-driven and vertical drift-driven current expressions, and that the far-field integration pipeline produces physically consistent results regardless of the input pathway.
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{interim_report_latex_template (1)/figure/yaoqqi/Photodember.png}
+		\caption{Photo-Dember mode}
+		\label{fig:standard_dember}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{interim_report_latex_template (1)/figure/yaoqqi/customPhotodember.png}
+		\caption{Custom mode: \texttt{Jx = dnx, Jy = dny}}
+		\label{fig:custom_dember_sub}
+	\end{subfigure}
+	\caption{Comparison of the $E_x$ waveform produced by (a)~the standard Photo-Dember mode and (b)~the Custom mechanism with \texttt{Jx~=~dnx}, \texttt{Jy~=~dny}. The waveform shapes are identical; the amplitude difference ($\times 10^{8}$ vs $\times 10^{28}$) reflects the omitted prefactor $q(D_e - D_h)$.}
+	\label{fig:custom_dember}
+\end{figure}
+
 \begin{figure}[h]
 	\begin{center}
 	\includegraphics[width=12.5cm]{interim_report_latex_template (1)/figure/shenglong/parameter.png}
