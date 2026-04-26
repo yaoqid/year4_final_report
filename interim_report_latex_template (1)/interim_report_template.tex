@@ -1,5 +1,5 @@
 \documentclass[12pt]{interim_report}
-\usepackage{amsmath,amsthm,graphicx}
+\usepackage{amsmath,amsthm,graphicx,subcaption}
 
 \title{Modelling terahertz pulse generation due to ultrafast photocurrents in semiconductors }
 \author{Yaoqi Dong, Yuhao Chang, Shenglong Li}
@@ -296,28 +296,29 @@ The resulting interface forms a complete front-end to the photocurrent simulatio
 The electric field computation described in Section~5.3 was applied to evaluate the far-field THz radiation produced by the simulated photocurrents. Three categories of results are presented below: the temporal waveform of the radiated pulse at a single observation point, the transverse polarisation structure across the observation plane, and the angular dependence of the emitted power compared with published experimental measurements.
 
 \subsubsection{Temporal Waveform}
-The time-dependent behaviour of the radiated THz electric field was evaluated at a fixed far-field observation point located at $x = 3.0~\mathrm{mm}$, $y = -3.0~\mathrm{mm}$, $z = -7.0~\mathrm{mm}$. Figures~\ref{fig:Ex} and~\ref{fig:Ey} present the temporal traces of the $E_x$ and $E_y$ components respectively. Both components display a distinctly bipolar pulse profile: a leading lobe of one polarity followed by a trailing lobe of the opposite sign. This waveform shape is a direct consequence of the proportionality between the radiated field and the time derivative of the current, $\mathbf{E} \propto \dot{\mathbf{J}}(t_{\mathrm{ret}})$, established by the far-field approximation in Equation~(\ref{eq:farfield}). The positive lobe corresponds to the rapid rise of the photocurrent as carriers are generated and begin diffusing, while the negative lobe corresponds to the subsequent decay as recombination reduces the carrier population and the density gradients relax. This bipolar structure is in strong agreement with the theoretical model developed by Auston et al.~\cite{auston_picosecond_1984}, who demonstrated that the far-field radiation from a transient current source is proportional to the first time derivative of the dipole moment.
+The time-dependent behaviour of the radiated THz electric field was evaluated at an observation point located at $x = 3.0~\mathrm{mm}$, $y = -3.0~\mathrm{mm}$, $z = -7.0~\mathrm{mm}$. In the coordinate system adopted here, positive $z$ points away from the semiconductor surface into free space; the negative $z$ value therefore places the observer on the substrate side, corresponding to the THz field that has propagated through the semiconductor. This transmitted geometry is relevant for common experimental configurations where THz radiation is collected through the substrate~\cite{Reklaitis2010}.
+
+Figure~\ref{fig:ExEy} presents the temporal traces of the $E_x$ and $E_y$ components at this observation point. Both components display a distinctly bipolar pulse profile: a leading lobe of one polarity followed by a trailing lobe of the opposite sign. This waveform shape is a direct consequence of the proportionality between the radiated field and the time derivative of the current, $\mathbf{E} \propto \dot{\mathbf{J}}(t_{\mathrm{ret}})$, established by the far-field approximation in Equation~(\ref{eq:farfield}). The positive lobe corresponds to the rapid rise of the photocurrent as carriers are generated and begin diffusing, while the negative lobe corresponds to the subsequent decay as recombination reduces the carrier population and the density gradients relax. This bipolar structure is in strong agreement with the theoretical model developed by Auston et al.~\cite{auston_picosecond_1984}, who demonstrated that the far-field radiation from a transient current source is proportional to the first time derivative of the dipole moment.
 
 The relative amplitudes of the two components reflect the off-axis observer position rather than any intrinsic asymmetry of the source. Because the Photo-Dember diffusion current is radially symmetric, the projection of $\dot{\mathbf{J}}$ onto the transverse $E_x$ and $E_y$ directions depends on the azimuthal angle from the source centre to the observer. At the chosen observation point, both components are comparable in magnitude, consistent with the observer lying at approximately $-45^\circ$ azimuth. Both components return to zero within approximately 50~ps, confirming that the simulation window is sufficiently wide to capture the full transient response without truncation artefacts.
 
 \begin{figure}[t]
-	\begin{center}
-	\includegraphics[width=10cm]{interim_report_latex_template (1)/figure/yaoqqi/Ex.png}
-	\caption{
-		Temporal waveform of $E_x(t)$ at the observation point $(3.0~\mathrm{mm},\, -3.0~\mathrm{mm},\, -7.0~\mathrm{mm})$. The bipolar pulse shape is consistent with $\mathbf{E} \propto \dot{\mathbf{J}}(t_{\mathrm{ret}})$.
-	}
-	\label{fig:Ex}
-	\end{center}
-\end{figure}
-
-\begin{figure}[t]
-	\begin{center}
-	\includegraphics[width=10cm]{interim_report_latex_template (1)/figure/yaoqqi/Ey.png}
-	\caption{
-		Temporal waveform of $E_y(t)$ at the same observation point. The comparable amplitude to $E_x$ reflects the $-45^\circ$ azimuthal position of the observer.
-	}
-	\label{fig:Ey}
-	\end{center}
+	\centering
+	\begin{subfigure}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{interim_report_latex_template (1)/figure/yaoqqi/Ex.png}
+		\caption{$E_x(t)$}
+		\label{fig:Ex}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{interim_report_latex_template (1)/figure/yaoqqi/Ey.png}
+		\caption{$E_y(t)$}
+		\label{fig:Ey}
+	\end{subfigure}
+	\caption{Temporal waveforms of (a)~$E_x(t)$ and (b)~$E_y(t)$ at the observation point $(3.0~\mathrm{mm},\, -3.0~\mathrm{mm},\, -7.0~\mathrm{mm})$, on the substrate (transmitted) side of the semiconductor. Both components exhibit a bipolar pulse shape consistent with $\mathbf{E} \propto \dot{\mathbf{J}}(t_{\mathrm{ret}})$.}
+	\label{fig:ExEy}
 \end{figure}
 
 \subsubsection{Radial Polarisation}
