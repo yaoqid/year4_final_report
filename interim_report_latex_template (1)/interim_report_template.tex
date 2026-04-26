@@ -380,8 +380,43 @@ The null at $\theta_1 = 0^\circ$ arises because the radially symmetric photo-Dem
 The simulated peak angle of $28^\circ$ is slightly higher than the experimental value of approximately $20^\circ$--$25^\circ$. Several factors contribute to this discrepancy. First, the simulation uses InAs material parameters with electron mobility $\mu_e = 0.8$~m$^2$/Vs, whereas the experiment was performed on Fe-doped InGaAs, which has a lower mobility due to iron compensation and a different absorption depth at 800~nm. Second, the simulation employs a drift-diffusion model for carrier transport, which does not capture ballistic effects in the first few hundred femtoseconds after excitation when carriers retain their initial photo-excited momentum. Third, the model does not account for refraction at the semiconductor--air interface, which would redirect the emission toward smaller angles due to Snell's law at the high-index boundary. Despite these simplifications, the overall agreement in the shape of the angular pattern, with its on-axis null, off-axis peak, and gradual roll-off, validates the retarded-potential framework as a physically meaningful model for far-field THz emission from semiconductor surfaces.
 
 \subsection{GUI Interface Results}
-% TODO: Present the GUI results with critical evaluation.
-% How well does it work? Performance analysis?
+
+\subsubsection{Custom Mechanism Validation}
+The Custom mechanism mode allows users to define arbitrary current density expressions $J_x(n, \partial n/\partial x, \partial n/\partial y, x, y, t)$, $J_y(\cdots)$, and $J_z(\cdots)$ as MATLAB formulas that are parsed and compiled at runtime. To validate that this pipeline produces physically correct results, the Custom mode was used to reproduce the Built-In Field mechanism, and the output was compared against the standard Built-In mode.
+
+In the Built-In Field model, the THz-generating current arises from the drift of photo-generated carriers in the surface depletion field. The depletion region extends to a depth $W_{\mathrm{dep}}$ below the semiconductor surface, within which a static electric field $E_z(z)$ accelerates electrons and holes in opposite vertical directions. The resulting net vertical current density is
+\begin{equation}
+    J_z(x,y,t) = q\,\mu_e\,E_z(z)\,n(x,y,t),
+    \label{eq:Jz_builtin}
+\end{equation}
+where $q$ is the elementary charge, $\mu_e$ is the electron mobility, and $n(x,y,t)$ is the carrier density at the surface. Crucially, $J_z$ is proportional to $n$: the spatial profile follows the Gaussian optical excitation envelope, and the temporal evolution follows the carrier generation and recombination dynamics. There is no lateral current in this mechanism, so $J_x = J_y = 0$.
+
+This proportionality means that the Built-In Field can be reproduced in Custom mode by entering:
+\begin{center}
+\texttt{Jx = 0}, \quad \texttt{Jy = 0}, \quad \texttt{Jz = -n}
+\end{center}
+The expression \texttt{Jz = -n} captures the essential physics: the vertical current is proportional to the local carrier density and directed downward (negative $z$) because electrons drift against the depletion field. The physical prefactors $q$, $\mu_e$, and $E_z$ are omitted, so the Custom output is expected to differ from the Built-In output by a constant scale factor while preserving the identical waveform shape.
+
+Figure~\ref{fig:custom_validation} compares the $E_x$ component produced by the two modes at the same observation point. The temporal waveforms are identical in shape: both exhibit the same bipolar pulse structure with the same zero-crossing time and the same ratio of positive to negative lobes. The only difference is the amplitude scale, which differs by a factor of approximately $10^{19}$. This factor is consistent with the missing physical constants: $q \cdot \mu_e \cdot E_{\mathrm{max}} \approx 1.6 \times 10^{-19} \times 0.8 \times 8 \times 10^{5} \approx 10^{-13}$~A/m, combined with the depth integration over the depletion region. The exact agreement in waveform shape confirms that the Custom formula parser, the runtime compilation via \texttt{str2func}, and the subsequent far-field integration all operate correctly.
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{interim_report_latex_template (1)/figure/yaoqqi/Ex2.png}
+		\caption{Custom mode: \texttt{Jz = -n}}
+		\label{fig:custom_builtin}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{interim_report_latex_template (1)/figure/yaoqqi/Ex22.png}
+		\caption{Built-In Field mode}
+		\label{fig:standard_builtin}
+	\end{subfigure}
+	\caption{Comparison of the $E_x$ waveform produced by (a)~the Custom mechanism with \texttt{Jz~=~-n} and (b)~the standard Built-In Field mode. The waveform shapes are identical; the amplitude difference ($\times 10^{23}$ vs $\times 10^{4}$) reflects the omitted physical prefactors $q\mu_e E_z$ in the Custom expression.}
+	\label{fig:custom_validation}
+\end{figure}
 \begin{figure}[h]
 	\begin{center}
 	\includegraphics[width=12.5cm]{interim_report_latex_template (1)/figure/shenglong/parameter.png}
