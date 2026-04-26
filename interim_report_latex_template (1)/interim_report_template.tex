@@ -274,33 +274,7 @@ The resulting interface forms a complete front-end to the photocurrent simulatio
 \section{Results}
 
 \subsection{Photo-Dember Model Results}
-The Photo-Dember effect arises from the ultrafast lateral diffusion of photo-generated carriers following femtosecond laser excitation. Because electrons have a significantly higher mobility than holes, they diffuse outward faster, creating a transient charge separation and a net radial photocurrent $\mathbf{J} = q(D_e - D_h)\nabla n$ that radiates THz electromagnetic waves. The simulation results presented in this section validate the Photo-Dember transport model by examining three aspects: the temporal waveform of the radiated field, the angular emission pattern compared with published experimental data, and the radial polarisation structure of the far-field beam.
-
-\subsubsection{Temporal Waveform}
-The time-dependent behaviour of the radiated THz electric field was evaluated at an observation point located at $x = 3.0~\mathrm{mm}$, $y = -3.0~\mathrm{mm}$, $z = -7.0~\mathrm{mm}$. In the coordinate system adopted here, positive $z$ points away from the semiconductor surface into free space; the negative $z$ value therefore places the observer on the substrate side, corresponding to the THz field that has propagated through the semiconductor. This transmitted geometry is relevant for common experimental configurations where THz radiation is collected through the substrate~\cite{Reklaitis2010}.
-
-Figure~\ref{fig:ExEy} presents the temporal traces of the $E_x$ and $E_y$ components at this observation point. Both components display a distinctly bipolar pulse profile: a leading lobe of one polarity followed by a trailing lobe of the opposite sign. This waveform shape is a direct consequence of the proportionality between the radiated field and the time derivative of the current, $\mathbf{E} \propto \dot{\mathbf{J}}(t_{\mathrm{ret}})$, established by the far-field approximation in Equation~(\ref{eq:farfield}). The positive lobe corresponds to the rapid rise of the photocurrent as carriers are generated and begin diffusing, while the negative lobe corresponds to the subsequent decay as recombination reduces the carrier population and the density gradients relax. This bipolar structure is in strong agreement with the theoretical model developed by Auston et al.~\cite{auston_picosecond_1984}, who demonstrated that the far-field radiation from a transient current source is proportional to the first time derivative of the dipole moment.
-
-The relative amplitudes of the two components reflect the off-axis observer position rather than any intrinsic asymmetry of the source. Because the Photo-Dember diffusion current is radially symmetric, the projection of $\dot{\mathbf{J}}$ onto the transverse $E_x$ and $E_y$ directions depends on the azimuthal angle from the source centre to the observer. At the chosen observation point, both components are comparable in magnitude, consistent with the observer lying at approximately $-45^\circ$ azimuth. Both components return to zero within approximately 50~ps, confirming that the simulation window is sufficiently wide to capture the full transient response without truncation artefacts.
-
-\begin{figure}[t]
-	\centering
-	\begin{subfigure}[t]{0.48\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{interim_report_latex_template (1)/figure/yaoqqi/Ex.png}
-		\caption{$E_x(t)$}
-		\label{fig:Ex}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[t]{0.48\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{interim_report_latex_template (1)/figure/yaoqqi/Ey.png}
-		\caption{$E_y(t)$}
-		\label{fig:Ey}
-	\end{subfigure}
-	\caption{Temporal waveforms of (a)~$E_x(t)$ and (b)~$E_y(t)$ at the observation point $(3.0~\mathrm{mm},\, -3.0~\mathrm{mm},\, -7.0~\mathrm{mm})$, on the substrate (transmitted) side of the semiconductor. Both components exhibit a bipolar pulse shape consistent with $\mathbf{E} \propto \dot{\mathbf{J}}(t_{\mathrm{ret}})$.}
-	\label{fig:ExEy}
-\end{figure}
+The Photo-Dember effect arises from the ultrafast lateral diffusion of photo-generated carriers following femtosecond laser excitation. Because electrons have a significantly higher mobility than holes, they diffuse outward faster, creating a transient charge separation and a net radial photocurrent $\mathbf{J} = q(D_e - D_h)\nabla n$ that radiates THz electromagnetic waves. The simulation results presented in this section validate the Photo-Dember transport model by examining the radial polarisation structure of the far-field beam and the angular emission pattern compared with published experimental data.
 
 \subsubsection{Radial Polarisation}
 A key prediction of the Photo-Dember model is that the radiated THz beam should be radially polarised, since the source current $\mathbf{J} = q(D_e - D_h)\nabla n$ points radially outward from the excitation centre at all azimuthal angles. This was confirmed by computing the transverse vector field distribution $(E_x, E_y)$ across an $11 \times 11$ grid of observation points in the $xy$-plane at a fixed propagation distance $z = 5$~mm, at the time of peak field magnitude ($t \approx 0.2$~ps). The resulting quiver plot shows electric field vectors directed radially outward from the beam axis at all angles, with magnitudes decreasing toward the centre. The on-axis null arises because the transverse projections of $\dot{\mathbf{J}}$ from diametrically opposite source cells cancel exactly by symmetry when the observer lies on the propagation axis. This radial polarisation structure is a distinctive signature of the Photo-Dember mechanism and has been experimentally confirmed by Klatt et al.~\cite{Klatt2010}.
@@ -377,6 +351,33 @@ The null at $\theta_1 = 0^\circ$ arises because the radially symmetric photo-Dem
 The simulated peak angle of $25^\circ$ falls within the experimentally observed range of $20^\circ$--$25^\circ$, demonstrating good quantitative agreement. Minor residual differences in the detailed shape of the pattern may arise from several factors: the simulation employs a drift-diffusion model that does not capture ballistic carrier transport in the first few hundred femtoseconds, the model does not account for refraction at the semiconductor--air interface, and the Fe:InGaAs material parameters are approximate values from the literature rather than measured values for the specific epilayer used by Mueckstein et al. Despite these simplifications, the close agreement in both the peak angle and the overall shape of the angular pattern validates the retarded-potential framework combined with the Photo-Dember source model as a physically meaningful description of far-field THz emission from semiconductor surfaces.
 
 \subsection{Built-in Field Model Results}
+The built-in field mechanism generates THz radiation through the vertical drift of photo-generated carriers in the surface depletion region. Unlike the Photo-Dember effect, which produces lateral currents, the built-in field drives a net vertical current $J_z \propto n(x,y,t)$ whose spatial profile follows the Gaussian optical excitation envelope.
+
+\subsubsection{Temporal Waveform}
+The time-dependent behaviour of the radiated THz electric field was evaluated in Built-In Field mode (\texttt{usePhotoDember~=~false}, \texttt{useBuiltIn~=~true}) at an observation point located at $x = 3.0~\mathrm{mm}$, $y = -3.0~\mathrm{mm}$, $z = -7.0~\mathrm{mm}$. In the coordinate system adopted here, positive $z$ points away from the semiconductor surface into free space; the negative $z$ value therefore places the observer on the substrate side, corresponding to the THz field that has propagated through the semiconductor. This transmitted geometry is relevant for common experimental configurations where THz radiation is collected through the substrate~\cite{Reklaitis2010}.
+
+Figure~\ref{fig:ExEy} presents the temporal traces of the $E_x$ and $E_y$ components at this observation point. Both components display a distinctly bipolar pulse profile: a leading lobe of one polarity followed by a trailing lobe of the opposite sign. This waveform shape is a direct consequence of the proportionality between the radiated field and the time derivative of the current, $\mathbf{E} \propto \dot{\mathbf{J}}(t_{\mathrm{ret}})$, established by the far-field approximation in Equation~(\ref{eq:farfield}). The positive lobe corresponds to the rapid rise of the photocurrent as carriers are generated and accelerated by the depletion field, while the negative lobe corresponds to the subsequent decay as recombination reduces the carrier population. This bipolar structure is in strong agreement with the theoretical model developed by Auston et al.~\cite{auston_picosecond_1984}, who demonstrated that the far-field radiation from a transient current source is proportional to the first time derivative of the dipole moment.
+
+The relative amplitudes of the two components reflect the off-axis observer position rather than any intrinsic asymmetry of the source. Although the built-in field drives a vertical current $J_z$, the double cross product in Equation~(\ref{eq:farfield}) projects this onto the transverse plane at the observer, producing non-zero $E_x$ and $E_y$ components whenever the observer is off-axis. At the chosen observation point, both components are comparable in magnitude, consistent with the observer lying at approximately $-45^\circ$ azimuth. Both components return to zero within approximately 50~ps, confirming that the simulation window is sufficiently wide to capture the full transient response without truncation artefacts.
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{interim_report_latex_template (1)/figure/yaoqqi/Ex.png}
+		\caption{$E_x(t)$}
+		\label{fig:Ex}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{interim_report_latex_template (1)/figure/yaoqqi/Ey.png}
+		\caption{$E_y(t)$}
+		\label{fig:Ey}
+	\end{subfigure}
+	\caption{Temporal waveforms of (a)~$E_x(t)$ and (b)~$E_y(t)$ at the observation point $(3.0~\mathrm{mm},\, -3.0~\mathrm{mm},\, -7.0~\mathrm{mm})$, on the substrate (transmitted) side of the semiconductor, computed in Built-In Field mode. Both components exhibit a bipolar pulse shape consistent with $\mathbf{E} \propto \dot{\mathbf{J}}(t_{\mathrm{ret}})$.}
+	\label{fig:ExEy}
+\end{figure}
 
 \subsection{Electric Field Results}
 The electric field computation described in Section~3.3 produces the far-field THz waveform at any specified observation point. Since the far-field integral is independent of the source mechanism — it operates on whatever current density arrays $J_x$, $J_y$, $J_z$ are provided — the results in this section apply equally to Photo-Dember, Built-In Field, or Custom source configurations.
