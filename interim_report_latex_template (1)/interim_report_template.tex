@@ -274,13 +274,7 @@ The resulting interface forms a complete front-end to the photocurrent simulatio
 \section{Results}
 
 \subsection{Photo-Dember Model Results}
-% TODO: Present and critically evaluate your Photo-Dember model results.
-% Include figures, analysis, and comparison with literature.
-
-\subsection{Built-in Field Model Results}
-
-\subsection{Electric Field Results}
-The electric field computation described in Section~5.3 was applied to evaluate the far-field THz radiation produced by the simulated photocurrents. Three categories of results are presented below: the temporal waveform of the radiated pulse at a single observation point, the transverse polarisation structure across the observation plane, and the angular dependence of the emitted power compared with published experimental measurements.
+The Photo-Dember effect arises from the ultrafast lateral diffusion of photo-generated carriers following femtosecond laser excitation. Because electrons have a significantly higher mobility than holes, they diffuse outward faster, creating a transient charge separation and a net radial photocurrent $\mathbf{J} = q(D_e - D_h)\nabla n$ that radiates THz electromagnetic waves. The simulation results presented in this section validate the Photo-Dember transport model by examining three aspects: the temporal waveform of the radiated field, the angular emission pattern compared with published experimental data, and the radial polarisation structure of the far-field beam.
 
 \subsubsection{Temporal Waveform}
 The time-dependent behaviour of the radiated THz electric field was evaluated at an observation point located at $x = 3.0~\mathrm{mm}$, $y = -3.0~\mathrm{mm}$, $z = -7.0~\mathrm{mm}$. In the coordinate system adopted here, positive $z$ points away from the semiconductor surface into free space; the negative $z$ value therefore places the observer on the substrate side, corresponding to the THz field that has propagated through the semiconductor. This transmitted geometry is relevant for common experimental configurations where THz radiation is collected through the substrate~\cite{Reklaitis2010}.
@@ -307,6 +301,9 @@ The relative amplitudes of the two components reflect the off-axis observer posi
 	\caption{Temporal waveforms of (a)~$E_x(t)$ and (b)~$E_y(t)$ at the observation point $(3.0~\mathrm{mm},\, -3.0~\mathrm{mm},\, -7.0~\mathrm{mm})$, on the substrate (transmitted) side of the semiconductor. Both components exhibit a bipolar pulse shape consistent with $\mathbf{E} \propto \dot{\mathbf{J}}(t_{\mathrm{ret}})$.}
 	\label{fig:ExEy}
 \end{figure}
+
+\subsubsection{Radial Polarisation}
+A key prediction of the Photo-Dember model is that the radiated THz beam should be radially polarised, since the source current $\mathbf{J} = q(D_e - D_h)\nabla n$ points radially outward from the excitation centre at all azimuthal angles. This was confirmed by computing the transverse vector field distribution $(E_x, E_y)$ across an $11 \times 11$ grid of observation points in the $xy$-plane at a fixed propagation distance $z = 5$~mm, at the time of peak field magnitude ($t \approx 0.2$~ps). The resulting quiver plot shows electric field vectors directed radially outward from the beam axis at all angles, with magnitudes decreasing toward the centre. The on-axis null arises because the transverse projections of $\dot{\mathbf{J}}$ from diametrically opposite source cells cancel exactly by symmetry when the observer lies on the propagation axis. This radial polarisation structure is a distinctive signature of the Photo-Dember mechanism and has been experimentally confirmed by Klatt et al.~\cite{Klatt2010}.
 
 \subsubsection{Angular Emission Pattern and Experimental Validation}
 To validate the simulated far-field radiation pattern, the angular response was compared with the experimental data presented in Fig.~8(b) of Mueckstein et al.~\cite{Mueckstein2015}, who measured the peak-to-peak THz amplitude emitted from Fe:InGaAs surfaces excited at normal incidence with a 250~$\mu$m-diameter beam at 800~nm. The simulation was run in Photo-Dember mode, since Mueckstein et al.\ demonstrated that the lateral in-plane photocurrents are the dominant THz generation mechanism in Fe:InGaAs, with the built-in field contribution being negligible due to the small band-bending in this narrow-bandgap material. The material parameters were chosen to match the experimental conditions: electron mobility $\mu_e = 0.5$~m$^2$/Vs, hole mobility $\mu_h = 0.02$~m$^2$/Vs, carrier lifetime $\tau_r = 300$~fs, absorption coefficient $\alpha = 10^6$~m$^{-1}$ at 800~nm, and beam waist $w_0 = 106~\mu$m corresponding to a FWHM spot diameter of approximately 250~$\mu$m.
@@ -378,6 +375,11 @@ The simulated pattern exhibits the characteristic features of in-plane dipole ra
 The null at $\theta_1 = 0^\circ$ arises because the radially symmetric photo-Dember source produces equal and opposite transverse field contributions from diametrically opposite source cells, which cancel exactly along the symmetry axis, as predicted by the double cross product in Equation~(\ref{eq:farfield}). The broad peak at intermediate angles reflects the trade-off between two competing geometric effects: at small angles the transverse projection of $\dot{\mathbf{J}}$ is weak, while at large angles the oblique path through the source increases $R$ and reduces the solid angle subtended by the detector.
 
 The simulated peak angle of $25^\circ$ falls within the experimentally observed range of $20^\circ$--$25^\circ$, demonstrating good quantitative agreement. Minor residual differences in the detailed shape of the pattern may arise from several factors: the simulation employs a drift-diffusion model that does not capture ballistic carrier transport in the first few hundred femtoseconds, the model does not account for refraction at the semiconductor--air interface, and the Fe:InGaAs material parameters are approximate values from the literature rather than measured values for the specific epilayer used by Mueckstein et al. Despite these simplifications, the close agreement in both the peak angle and the overall shape of the angular pattern validates the retarded-potential framework combined with the Photo-Dember source model as a physically meaningful description of far-field THz emission from semiconductor surfaces.
+
+\subsection{Built-in Field Model Results}
+
+\subsection{Electric Field Results}
+The electric field computation described in Section~3.3 produces the far-field THz waveform at any specified observation point. Since the far-field integral is independent of the source mechanism — it operates on whatever current density arrays $J_x$, $J_y$, $J_z$ are provided — the results in this section apply equally to Photo-Dember, Built-In Field, or Custom source configurations.
 
 \subsection{GUI Interface Results}
 
