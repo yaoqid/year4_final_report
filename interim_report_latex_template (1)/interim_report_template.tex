@@ -109,7 +109,7 @@ Figure~\ref{fig:geometry} illustrates the computational geometry. The semiconduc
 
 Each grid cell at position $\mathbf{r}'_{ij}$ carries a time-varying current density $\mathbf{J}(\mathbf{r}'_{ij}, t_k)$ obtained from the diffusion-recombination solver. In the transport model, the diffusion current at each time step is computed from the spatial gradient of the carrier density using MATLAB's built-in \texttt{gradient} function, which applies second-order central differences internally:
 \begin{equation}
-    J_x = -qD\frac{\partial n}{\partial x}, \quad J_y = -qD\frac{\partial n}{\partial y},
+    J_x = qD\frac{\partial n}{\partial x}, \quad J_y = qD\frac{\partial n}{\partial y},
 \end{equation}
 where $q$ is the elementary charge, $D$ is the diffusion coefficient, and $n$ is the carrier density. The \texttt{gradient} function was chosen because it handles boundary cells with appropriate one-sided differences, avoiding the need for manual ghost-cell implementations at the grid edges.\newline
 The observation point $\mathbf{r} = (X_0, Y_0, z_0)$ is placed in the far-field region, typically at $z_0 = 5$--$10$~mm above the surface. For each source cell, the displacement vector $\mathbf{R}_{ij} = \mathbf{r} - \mathbf{r}'_{ij}$ defines the distance $R_{ij} = |\mathbf{R}_{ij}|$ and the unit vector $\hat{\mathbf{R}}_{ij} = \mathbf{R}_{ij}/R_{ij}$. These quantities are computed as two-dimensional arrays using element-wise MATLAB operations such as \texttt{sqrt} and \texttt{./}, which avoids any explicit loops over the spatial grid. A singularity guard is applied using \texttt{R(R==0) = eps}, where \texttt{eps} $\approx 2.2 \times 10^{-16}$ is MATLAB's machine epsilon, to prevent division-by-zero errors.
