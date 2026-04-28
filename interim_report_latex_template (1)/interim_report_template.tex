@@ -50,7 +50,7 @@ Despite the maturity of the underlying physics, openly available simulation tool
 
 
 \subsection{Photo-Dember Effect}
-\subsubsection{Ultrafast Optical Excitation and Carrier Generation}
+\subsubsection{Carrier Generation and Diffusion}
 
 The Photo-Dember effect starts when an ultrafast laser pulse excites the semiconductor surface. In this project, the semiconductor material is InAs, and the laser pulse is described as a short Gaussian excitation in both space and time. When the semiconductor absorbs the photon energy, it generates electron-hole pairs near the illuminated surface. This process occurs on a femtosecond to picosecond timescale, so the initial carrier distribution is highly localised and far from equilibrium~\cite{Tonouchi2020,Heroux2017}.
 
@@ -65,8 +65,6 @@ where $G_0$ is the peak carrier generation rate, $w_0$ is the beam waist, $t_0$ 
 
 Equation~\ref{eq:gaussian_generation} shows that the carrier generation is strongest at the centre of the laser spot and around the pulse peak time. This stage is important because it defines the initial source of the later photocurrent. A stronger and more localised optical excitation produces a larger carrier density gradient. This gradient later becomes the driving force for carrier diffusion. Therefore, the optical excitation profile directly affects the strength and shape of the transient current that can radiate terahertz waves~\cite{Tonouchi2020,NavarroCia2016}.
 
-\subsubsection{Unequal Electron and Hole Diffusion}
-
 After the electron-hole pairs are generated, the carriers begin to move away from the excitation region. In the Photo-Dember effect, electrons and holes do not diffuse at the same speed. In most semiconductors, electrons have higher mobility than holes. The Einstein relation links the carrier mobility to the diffusion coefficient:
 \begin{equation}
     D = \mu \frac{k_B T}{q},
@@ -78,7 +76,7 @@ Equation~\ref{eq:einstein_relation} shows that a higher mobility gives a higher 
 
 This unequal diffusion creates a temporary spatial separation between negative and positive charges. Electrons move farther away from the excitation centre, while holes remain more localised near the original generation region. This charge separation is the physical origin of the Photo-Dember field and the associated photocurrent. InAs is suitable for this mechanism because its electron mobility is much higher than its hole mobility. This mobility difference can enhance diffusion-driven carrier separation after femtosecond excitation~\cite{Heroux2017,Lu2022}.
 
-\subsubsection{Formation of Transient Photo-Dember Current}
+\subsubsection{Transient Photocurrent and THz Radiation}
 
 The unequal diffusion of electrons and holes produces a transient photocurrent. In a diffusion-based description, the current is driven by the spatial gradient of the carrier density. The diffusion current density can be written as
 \begin{equation}
@@ -101,8 +99,6 @@ where $D_e$ and $D_h$ are the electron and hole diffusion coefficients, and $n$ 
 
 Equation~\ref{eq:photo_dember_current} shows that the net Photo-Dember current depends on the difference between electron and hole diffusion. If electrons diffuse faster than holes, the electron contribution dominates the transient current. This transient current is the central link between the carrier transport model and the terahertz radiation model. The carrier density itself does not directly radiate a strong terahertz field. Instead, the rapidly changing current produced by carrier redistribution acts as the electromagnetic source~\cite{Tonouchi2020,Pettine2023}.
 
-\subsubsection{THz Radiation from Time-Varying Current}
-
 The final step of the Photo-Dember mechanism is the radiation of a terahertz electromagnetic pulse. According to classical electrodynamics, a steady current does not radiate efficiently. Radiation is produced when the current changes rapidly with time. Therefore, the emitted terahertz field is mainly related to the time derivative of the transient photocurrent:
 \begin{equation}
     \mathbf{E}_{\mathrm{THz}}(t)
@@ -118,13 +114,11 @@ In this project, this relationship is important because the Photo-Dember simulat
 This sequence explains the physical route from the Photo-Dember effect to THz wave generation. The laser pulse creates a localised carrier population. The mobility difference between electrons and holes causes unequal diffusion. The unequal diffusion produces a transient current. The rapid time variation of this current then radiates a broadband terahertz pulse. Therefore, the Photo-Dember effect provides a complete mechanism that links ultrafast carrier dynamics with terahertz emission from semiconductor surfaces~\cite{Tonouchi2020,Heroux2017,Pettine2023}.
 
 \subsection{Built-in Field Effect}
-\subsubsection{Origin of the Surface Depletion Field}
+\subsubsection{Depletion Field and Carrier Drift}
 
 The built-in field effect provides a second mechanism through which ultrafast photocurrents can radiate terahertz waves from semiconductor surfaces. At the free surface of a semiconductor, the abrupt termination of the periodic crystal lattice introduces dangling bonds and surface states within the band gap. These states trap charge carriers from the bulk and pin the Fermi level near the middle of the band gap, regardless of the bulk doping concentration~\cite{SimulationTHz,Pettine2023}. The redistribution of charge between the surface states and the bulk produces a depletion region near the surface, in which a static electric field develops along the depth direction.
 
 The width of the depletion region $W_{\mathrm{dep}}$ and the magnitude of the built-in field $E_{\mathrm{bi}}$ depend on the doping density, the position of the pinned Fermi level, and the band-gap energy of the material. For typical III\,V semiconductors such as GaAs and InP, the depletion width lies in the range of a few tens to a few hundreds of nanometres, and the peak field magnitude can reach $10^{5}$\,V/m to $10^{6}$\,V/m near the surface~\cite{SimulationTHz}. In the simplest one-dimensional approximation, the depletion field decays smoothly from its peak value at the surface to zero at the depletion edge, where the semiconductor recovers its bulk neutral condition.
-
-\subsubsection{Drift of Photo-generated Carriers in the Depletion Field}
 
 When a femtosecond optical pulse is absorbed near the surface, electron\,hole pairs are generated within the depletion region. The static built-in field then exerts opposite forces on the two carrier types. In an n-type or intrinsic semiconductor with downward surface band-bending, electrons are accelerated towards the bulk while holes are accelerated towards the surface. The drift velocities can be written as
 \begin{equation}
@@ -136,7 +130,7 @@ where $\mu_n$ and $\mu_p$ are the electron and hole mobilities, respectively. Th
 
 This carrier separation occurs on a sub-picosecond timescale, since the photo-generated carriers respond to the local field almost as soon as they are created. The resulting motion is markedly different from the lateral diffusion described in the Photo-Dember mechanism. Whereas the Photo-Dember effect produces a radial in-plane current driven by carrier density gradients, the built-in field effect produces a directed vertical current along the surface normal~\cite{Pettine2023,YangTonouchi2022}.
 
-\subsubsection{Formation of the Surface Drift Current}
+\subsubsection{Drift Current and THz Radiation}
 
 The drift of photo-generated electrons and holes in the depletion field produces a transient photocurrent along the depth direction. The local current density can be expressed as
 \begin{equation}
@@ -148,8 +142,6 @@ where $n(z,t)$ and $p(z,t)$ are the electron and hole densities. Because both ca
 Equation~\ref{eq:drift_current_density} shows that the drift current is largest near the surface, where both the carrier density and the built-in field reach their maximum values~\cite{SimulationTHz}. As carriers move away from the surface, the field weakens and the local current density decreases. The temporal evolution of the current follows the rapid generation of carriers during the laser pulse, followed by a slower decay governed by carrier recombination, diffusion away from the high-field region, and screening of the depletion field by the separated charges themselves~\cite{Malevich2021}.
 
 The total drift current density observed in the far field is obtained by integrating the local contribution along the depth coordinate over the depletion region, since the radiating source spans the full extent of the field-driven transport region rather than a single plane~\cite{SimulationTHz}.
-
-\subsubsection{THz Radiation from the Surface Drift Current}
 
 Following the same electrodynamic principles that apply to the Photo-Dember mechanism, the rapidly varying surface drift current acts as a source of terahertz radiation. The radiated electric field is proportional to the time derivative of the drift current,
 \begin{equation}
@@ -163,10 +155,9 @@ The vertical orientation of the drift current has consequences for the polarisat
 The relative importance of the built-in field effect and the Photo-Dember effect depends on the material system. In wide-band-gap III\,V semiconductors with strong surface Fermi-level pinning, such as GaAs and InP, the built-in field effect typically dominates the THz emission~\cite{auston_picosecond_1984,SimulationTHz}. In narrow-band-gap materials such as InAs and Fe:InGaAs, the surface band-bending is weaker and the Photo-Dember mechanism becomes the dominant source of radiation~\cite{Reklaitis2010}. Both mechanisms can coexist in a given material, and their combined contribution determines the amplitude, polarisation, and waveform of the emitted terahertz pulse.
 
 \subsection{Electric Field Theory}
-\subsubsection{From Photocurrent to Electromagnetic Radiation}
+\subsubsection{Retarded Potentials and Jefimenko's Equations}
 The fundamental link between ultrafast photocurrents and terahertz emission lies in classical electrodynamics. When a femtosecond laser pulse excites a semiconductor surface, it generates a transient current density $\mathbf{J}(\mathbf{r}', t)$ through mechanisms such as the Photo-Dember effect and surface depletion field drift. Since this current varies on a sub-picosecond timescale, it radiates electromagnetic energy in the terahertz frequency range~\cite{Yang2023}. This principle was first experimentally verified by Auston et al.~\cite{auston_picosecond_1984}, who demonstrated that the far-field radiation from a transient current source is proportional to the first time derivative of the dipole moment. Recent studies have further shown that similar transient photocurrent mechanisms drive THz emission in semiconductor heterostructures, where ballistic photocurrents across band offsets produce measurable radiation pulses~\cite{Malevich2021}. The theoretical framework employed in this project treats each infinitesimal current element on the semiconductor surface as a Hertzian dipole, and the total radiated field is obtained by superposition, following the approach of Johnston et al.~\cite{SimulationTHz}.
 
-\subsubsection{Retarded Potentials and Jefimenko's Equations}
 The electric field at an observation point $\mathbf{r}$ due to a time-varying source distribution is rigorously described by Jefimenko's equations, which are the retarded-time solutions to Maxwell's equations~\cite{griffiths_electrodynamics}. The key physical insight is causality: the field observed at time $t$ depends on the state of the source at the earlier retarded time
 \begin{equation}
     t_{\mathrm{ret}} = t - \frac{R}{c},
@@ -416,7 +407,7 @@ The first tab, \textit{Mechanism Selector}, exposes a radio-button group with th
     \label{fig:gui_param}
 \end{figure}
 
-\subsubsection{Parameter Marshalling and Validation}
+\subsubsection{Parameter Handling and Custom Mechanism Parsing}
 A central design challenge was to translate user-facing inputs, which are typically expressed in engineering units that physicists find intuitive, into the numerical form required by the simulation engine. The callback associated with the \textit{Update Geometry} push button performs this translation inside a dedicated private method, \texttt{runDiffusionEngine}, that constructs a parameter struct from the GUI fields. Several non-trivial conversions are carried out at this stage. The pulse full-width-at-half-maximum entered by the user is rescaled to the Gaussian standard-deviation form $\tau_p = \mathrm{FWHM}/\sqrt{2\ln 2}$ that the analytical pulse model expects. The fluence value, supplied in J/cm$^2$, is converted to peak intensity through
 \begin{equation}
     I_0 = \frac{F\,\cos\theta}{4\,\tau_p},
@@ -425,14 +416,13 @@ where the cosine factor accounts for the geometric reduction in fluence under ob
 
 Input validation is performed before the parameter struct is dispatched to the solver. Non-positive values for the recombination lifetime or absorption depth raise a modal alert via \texttt{uialert}, and the callback returns without invoking the engine. This prevents the simulation from entering an undefined state and provides the user with immediate, contextual feedback. Stale results from previous runs are explicitly cleared at the start of each callback execution by setting the \texttt{SimResults} property to an empty array, which guarantees that downstream plotting routines never display data inconsistent with the current parameter set.
 
-\subsubsection{Custom Mechanism Parsing}
 The \textit{Custom} mechanism mode required a more elaborate parsing pipeline because user-supplied formulas must be compiled into MATLAB function handles at runtime. Within the \texttt{runCustomEngine} method, the contents of the three text-area fields are first concatenated using \texttt{strjoin} to flatten any line breaks introduced by multi-line entry. Empty entries default to the string \texttt{'0'} so that an unspecified component contributes nothing to the radiated field rather than raising a syntax error. The resulting expressions are wrapped in anonymous function syntax through \texttt{str2func}:
 \begin{verbatim}
     hx = str2func(['@(n,dnx,dny,X,Y,t) ' fx]);
 \end{verbatim}
 A wrapper handle is then constructed that evaluates all three components in a single call and returns them via \texttt{deal}, ensuring that the physics engine receives a uniformly typed callable. To detect dimensional inconsistencies before they propagate into the time-stepping loop, the wrapper is invoked on a small test grid of size $3 \times 4$ and the output dimensions are compared to those of the input through \texttt{isequal}. Any mismatch triggers an explanatory alert, which is particularly useful when a user inadvertently writes a formula that collapses an array dimension, for example by using scalar division where element-wise division was intended. A \texttt{try/catch} block surrounds the entire compilation step to convert MATLAB's raw error messages into user-readable dialog boxes.
 
-\subsubsection{Geometry Visualisation and Coordinated Plotting}
+\subsubsection{Visualisation and Performance}
 The right-hand panel of the upper region renders a three-dimensional schematic of the semiconductor slab and the incident laser beam, drawn through two private methods, \texttt{plotSample} and \texttt{plotBeam}. The semiconductor is represented as a rectangular cuboid by enumerating its six faces and rendering each through MATLAB's \texttt{patch} function with semi-transparent shading. The laser beam is generated using \texttt{cylinder} and rotated about the $y$-axis by the user-specified incidence angle through a standard rotation matrix:
 \begin{equation}
     \begin{pmatrix} X' \\ Z' \end{pmatrix}
@@ -462,7 +452,6 @@ The lower region of the application contains four output displays that are popul
     \label{fig:gui_complete}
 \end{figure}
 
-\subsubsection{Performance Considerations}
 Coupling a computationally expensive solver to a single-threaded GUI raised concerns about responsiveness, particularly during the far-field summation, which dominates total runtime. Two design choices were made to mitigate this. First, the standard mechanism path uses the high-resolution spatial grid of $601 \times 601$ points required for accurate field reconstruction, while the \textit{Custom} path operates on a reduced $201 \times 201$ grid, recognising that user-defined formulas are typically used for exploratory work where rapid feedback matters more than fine spatial resolution. Second, the spatial radiation map is restricted to an $11 \times 11$ observation grid, which limits the additional cost relative to a single-point waveform calculation while still revealing the radial polarisation pattern. With these settings, a complete simulation cycle from button press to fully rendered output typically completes within approximately one minute on a standard desktop machine, which was judged acceptable for an interactive exploratory tool.
 
 The resulting interface forms a complete front-end to the photocurrent simulation pipeline, mapping user-defined physical parameters onto the diffusion solver, the far-field integrator, and the spatial field-mapping routine in a single coordinated workflow. A blank instance of the application is shown in Figure~\ref{fig:gui_blank} for reference; populated outputs corresponding to the default parameter set appear in Figure~\ref{fig:gui_complete}.
@@ -483,7 +472,6 @@ The resulting interface forms a complete front-end to the photocurrent simulatio
 \subsection{Photo-Dember Model Results}
 The Photo-Dember effect arises from the ultrafast lateral diffusion of photo-generated carriers following femtosecond laser excitation. Because electrons have a significantly higher mobility than holes, they diffuse outward faster, creating a transient charge separation and a net radial photocurrent $\mathbf{J} = q(D_e - D_h)\nabla n$ that radiates THz electromagnetic waves. The simulation results presented in this section validate the Photo-Dember transport model by comparing the angular emission pattern with published experimental data.
 
-\subsubsection{Angular Emission Pattern and Experimental Validation}
 To validate the simulated far-field radiation pattern, the angular response was compared with the experimental data presented in Fig.~8(b) of Mueckstein et al.~\cite{Mueckstein2015}, who measured the peak-to-peak THz amplitude emitted from Fe:InGaAs surfaces excited at normal incidence with a 250~$\mu$m-diameter beam at 800~nm. The simulation was run in Photo-Dember mode, since Mueckstein et al.\ demonstrated that the lateral in-plane photocurrents are the dominant THz generation mechanism in Fe:InGaAs, with the built-in field contribution being negligible due to the small band-bending in this narrow-bandgap material. The material parameters were chosen to match the experimental conditions: electron mobility $\mu_e = 0.5$~m$^2$/Vs, hole mobility $\mu_h = 0.02$~m$^2$/Vs, carrier lifetime $\tau_r = 300$~fs, absorption coefficient $\alpha = 10^6$~m$^{-1}$ at 800~nm, and beam waist $w_0 = 106~\mu$m corresponding to a FWHM spot diameter of approximately 250~$\mu$m.
 
 The lateral observation position was fixed at $X_0 = 3.2$~mm while the vertical position $Z_0$ was varied to sweep the observation angle
@@ -558,7 +546,7 @@ The simulated peak angle of $25^\circ$ falls within the experimentally observed 
 
 The built-in field model was used to study how a surface depletion field affects carrier motion in InAs. This part of the results focuses on the electric field distribution, carrier separation, total carrier number, and the resulting transient photocurrent.
 
-\subsubsection{Built-in Electric Field Profile}
+\subsubsection{Field Profile and Carrier Separation}
 
 The simulation first defined the built-in electric field near the semiconductor surface. As shown in Fig.~\ref{fig:built_in_field_profile}, the electric field was strongest at the surface and gradually decreased to zero at the depletion edge. This profile represented a simplified surface depletion region.
 
@@ -571,8 +559,6 @@ The simulation first defined the built-in electric field near the semiconductor 
 
 This field distribution provided a clear driving force for carrier motion along the depth direction. The smooth decay of the field also avoided a sharp discontinuity at the depletion boundary. This setup allowed the simulation to isolate the effect of field-driven transport.
 
-\subsubsection{Carrier Separation under the Built-in Field}
-
 The simulation then examined the electron and hole density distributions after optical excitation. As shown in Fig.~\ref{fig:built_in_carrier_separation}, the electron distribution shifted further into the material, while the hole density remained stronger near the surface.
 
 \begin{figure}[H]
@@ -584,7 +570,7 @@ The simulation then examined the electron and hole density distributions after o
 
 This result showed that the built-in electric field drove electrons and holes in opposite directions. The field provided a preferred transport direction along the $z$ axis. This behaviour differed from the Photo-Dember model, where carrier motion was mainly radial and symmetric. The separation between electrons and holes became clear shortly after the optical pulse. This separation became less pronounced at later times because recombination reduced the carrier density.
 
-\subsubsection{Total Carrier Number}
+\subsubsection{Carrier Dynamics and Photocurrent}
 
 The simulation also calculated the total number of electrons and holes over time. As shown in Fig.~\ref{fig:built_in_total_carrier_number}, the total numbers remained almost equal throughout the simulation.
 
@@ -596,8 +582,6 @@ The simulation also calculated the total number of electrons and holes over time
 \end{figure}
 
 This behaviour was physically consistent with pair generation. The optical excitation created electrons and holes together, and recombination removed them in pairs. Therefore, the simulation did not produce a large imbalance in the total carrier number. The key result was not the total number itself, but the spatial separation between electrons and holes.
-
-\subsubsection{Transient Photocurrent Generation}
 
 The built-in field produced a transient photocurrent by separating carriers along the depth direction. The simulation calculated the total photocurrent as a function of time. As shown in Fig.~\ref{fig:built_in_photocurrent}, the photocurrent rose rapidly when the optical pulse reached its peak.
 
@@ -614,8 +598,6 @@ The sign of the photocurrent depended on the reference direction defined in the 
 
 
 \subsection{GUI Interface Results}
-
-\subsubsection{Custom Mechanism Validation}
 The Custom mechanism mode allows users to define arbitrary current density expressions $J_x(n, \partial n/\partial x, \partial n/\partial y, x, y, t)$, $J_y(\cdots)$, and $J_z(\cdots)$ as MATLAB formulas that are parsed and compiled at runtime. To validate that this pipeline produces physically correct results, the Custom mode was used to reproduce the Built-In Field mechanism, and the output was compared against the standard Built-In mode.
 
 In the Built-In Field model, the THz-generating current arises from the drift of photo-generated carriers in the surface depletion field. The depletion region extends to a depth $W_{\mathrm{dep}}$ below the semiconductor surface, within which a static electric field $E_z(z)$ accelerates electrons and holes in opposite vertical directions. The resulting net vertical current density is
