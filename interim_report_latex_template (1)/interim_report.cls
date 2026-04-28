@@ -1,4 +1,16 @@
 \NeedsTeXFormat{LaTeX2e}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{1.png}
+    \caption{Enter Caption}
+\begin{figure}
+        \centering
+        \includegraphics[width=0.5\linewidth]{2.png}
+        \caption{Enter Caption}
+        \label{fig:placeholder}
+    \end{figure}
+        \label{fig:placeholder}
+\end{figure}
 \ProvidesClass{project_report}[2021/12/02 (oh209)]
 
 % Passes and class options to the underlying article class
