@@ -42,13 +42,6 @@ Two distinct microscopic origins for the transient photocurrent have been establ
 Existing numerical treatments of these two mechanisms span a wide range of sophistication, and their respective limitations directly motivate the modelling choices adopted in this work. Johnston et al.~\cite{SimulationTHz} coupled a semiclassical Monte Carlo solver to a Hertzian-dipole far-field calculation and reproduced experimental waveforms for several III\,V materials, although the Monte Carlo step is computationally demanding and offers limited transparency for users who wish to vary material parameters interactively. Drift-diffusion approaches, including those reviewed by Apostolopoulos and Barnes~\cite{Apostolopoulos2014}, sacrifice the early-time ballistic regime in exchange for tractable two-dimensional simulations, yet remain accurate for the picosecond-scale dynamics that dominate the radiated waveform. McBryde et al.~\cite{McBryde2018} extended the drift-diffusion approach by coupling it to a finite-difference time-domain Maxwell solver, and demonstrated that vertical current components in lateral Photo-Dember emitters carry more weight than was previously assumed. A common feature of these prior frameworks is that the radiation step is expressed either as a simplified dipole approximation or as a fully-coupled FDTD simulation. The intermediate regime, in which the carrier transport is solved on a coarse grid and the far field is obtained directly from Jefimenko's retarded-potential expression, has received comparatively little attention, despite its appropriateness for surface emitters whose source extent is much smaller than the THz wavelength. This intermediate regime is the one adopted in the present project, and a recent application of the same retarded-potential framework to spintronic emitters by Kefayati and Nikoli\'{c}~\cite{Kefayati2024} confirms that Jefimenko's equations remain a valid description of ultrafast electromagnetic emission across material classes well beyond conventional semiconductors.
 
 Despite the maturity of the underlying physics, openly available simulation tools that allow non-specialist users to explore how material parameters and excitation conditions shape the radiated field remain scarce. Most published implementations are bespoke research codes whose interfaces, parameter conventions, and output formats are tailored to the originating laboratory, and their dissemination has tended to consist of journal figures rather than redistributable software. The interactive simulation framework developed in this project is intended to address that gap. By integrating a vectorised diffusion-recombination solver, a vectorised retarded-potential integrator, and a MATLAB App Designer interface within a single workflow, the tool exposes the temporal waveform, spatial polarisation pattern, and carrier dynamics produced by a single set of user-defined parameters in a coordinated display. The Custom mechanism mode further allows arbitrary user-defined current expressions to be supplied at runtime, which extends the framework beyond the two canonical mechanisms and enables exploration of hypothetical or composite source distributions without modification of the underlying engine. The contribution of this work therefore lies less in the formulation of new physics and more in the consolidation of established theoretical results into an interactive, validated, and extensible platform suitable for both pedagogical use and predictive design of surface-emission THz sources.
-% TODO: Expand this into a proper literature review.
-% - How is your project informed by existing knowledge?
-% - How does existing knowledge relate to your project goals?
-% - How will you use existing knowledge in your project?
-% - How will you contribute to knowledge?
-% Reference existing citations: \cite{Hebling:02}, \cite{SimulationTHz}, \cite{auston_picosecond_1984}
-
 %% ============================================================
 %% PROJECT GOALS
 %% ============================================================
@@ -57,18 +50,6 @@ Despite the maturity of the underlying physics, openly available simulation tool
 
 
 \subsection{Photo-Dember Effect}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{interim_report_latex_template (1)/figure/yuhao/3.png}
-    \caption{Enter Caption}
-\begin{figure}
-        \centering
-        \includegraphics[width=0.5\linewidth]{builtcurrent.png}
-        \caption{Enter Caption}
-        \label{fig:placeholder}
-    \end{figure}
-        \label{fig:placeholder}
-\end{figure}
 \subsubsection{Ultrafast Optical Excitation and Carrier Generation}
 
 The Photo-Dember effect starts when an ultrafast laser pulse excites the semiconductor surface. In this project, the semiconductor material is InAs, and the laser pulse is described as a short Gaussian excitation in both space and time. When the semiconductor absorbs the photon energy, it generates electron-hole pairs near the illuminated surface. This process occurs on a femtosecond to picosecond timescale, so the initial carrier distribution is highly localised and far from equilibrium~\cite{Tonouchi2020,Heroux2017}.
@@ -503,12 +484,6 @@ The resulting interface forms a complete front-end to the photocurrent simulatio
 The Photo-Dember effect arises from the ultrafast lateral diffusion of photo-generated carriers following femtosecond laser excitation. Because electrons have a significantly higher mobility than holes, they diffuse outward faster, creating a transient charge separation and a net radial photocurrent $\mathbf{J} = q(D_e - D_h)\nabla n$ that radiates THz electromagnetic waves. The simulation results presented in this section validate the Photo-Dember transport model by comparing the angular emission pattern with published experimental data.
 
 \subsubsection{Angular Emission Pattern and Experimental Validation}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\linewidth]{interim_report_latex_template (1)/figure/yuhao/1.png}
-    \caption{Enter Caption}
-    \label{fig:placeholder}
-\end{figure}
 To validate the simulated far-field radiation pattern, the angular response was compared with the experimental data presented in Fig.~8(b) of Mueckstein et al.~\cite{Mueckstein2015}, who measured the peak-to-peak THz amplitude emitted from Fe:InGaAs surfaces excited at normal incidence with a 250~$\mu$m-diameter beam at 800~nm. The simulation was run in Photo-Dember mode, since Mueckstein et al.\ demonstrated that the lateral in-plane photocurrents are the dominant THz generation mechanism in Fe:InGaAs, with the built-in field contribution being negligible due to the small band-bending in this narrow-bandgap material. The material parameters were chosen to match the experimental conditions: electron mobility $\mu_e = 0.5$~m$^2$/Vs, hole mobility $\mu_h = 0.02$~m$^2$/Vs, carrier lifetime $\tau_r = 300$~fs, absorption coefficient $\alpha = 10^6$~m$^{-1}$ at 800~nm, and beam waist $w_0 = 106~\mu$m corresponding to a FWHM spot diameter of approximately 250~$\mu$m.
 
 The lateral observation position was fixed at $X_0 = 3.2$~mm while the vertical position $Z_0$ was varied to sweep the observation angle
