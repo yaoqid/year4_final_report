@@ -597,7 +597,7 @@ This rapid increase occurred because many carriers were generated within a short
 The sign of the photocurrent depended on the reference direction defined in the simulation. The sign itself was therefore not the main focus. The important feature was the fast rise and decay of the current. This result confirmed that the built-in field can produce an ultrafast transient photocurrent before the later THz-field calculation.
 
 
-\subsection{GUI Interface Results}
+\subsection{Custom Model Results}
 The Custom mechanism mode allows users to define arbitrary current density expressions $J_x(n, \partial n/\partial x, \partial n/\partial y, x, y, t)$, $J_y(\cdots)$, and $J_z(\cdots)$ as MATLAB formulas that are parsed and compiled at runtime. To validate that this pipeline produces physically correct results, the Custom mode was used to reproduce the Built-In Field mechanism, and the output was compared against the standard Built-In mode.
 
 In the Built-In Field model, the THz-generating current arises from the drift of photo-generated carriers in the surface depletion field. The depletion region extends to a depth $W_{\mathrm{dep}}$ below the semiconductor surface, within which a static electric field $E_z(z)$ accelerates electrons and holes in opposite vertical directions. The resulting net vertical current density is
