@@ -155,21 +155,14 @@ In the context of this project, the current density $\mathbf{J}$ is obtained fro
 \section{Methods}
 \subsection{Photo-Dember Numerical Model}
 
-The Photo-Dember model was implemented as a two-dimensional diffusion-recombination simulation in the semiconductor surface plane. The model aimed to describe how an ultrafast optical pulse generates a localised carrier population. It also described how this population diffuses after excitation and how the resulting carrier density gradient produces a transient diffusion current.
+The Photo-Dember model was implemented as a two-dimensional diffusion recombination simulation in the semiconductor surface plane. The model aimed to describe how an ultrafast optical pulse generates a localised carrier population. It also described how this population diffuses after excitation and how the resulting carrier density gradient produces a transient diffusion current. This Photo-Dember model was treated as a simplified single carrier diffusion model. It used the electron density distribution to estimate the diffusion driven photocurrent. It did not solve a fully coupled electron hole transport system at this stage. This simplification was suitable because the main purpose of this section was to obtain the diffusion driven current source for the later THz radiation calculation. The simulation domain was defined in the $x$-$y$ plane as a square semiconductor surface with a size of $1.5\,\mathrm{mm} \times 1.5\,\mathrm{mm}$. The domain was discretised into $601 \times 601$ grid points with uniform spacing in both directions. This grid allowed the carrier density to be calculated as a function of position and time. The optical excitation was modelled as a Gaussian pulse in both space and time. The spatial excitation was centred at $x = 0$ and $y = 0$. The beam waist was set to $250\,\mu\mathrm{m}$. The spatial Gaussian profile followed the form:
 
-This Photo-Dember model was treated as a simplified single-carrier diffusion model. It used the electron density distribution to estimate the diffusion-driven photocurrent. It did not solve a fully coupled electron-hole transport system at this stage. This simplification was suitable because the main purpose of this section was to obtain the diffusion-driven current source for the later THz radiation calculation.
-
-The simulation domain was defined in the $x$-$y$ plane as a square semiconductor surface with a size of $500\,\mu\mathrm{m} \times 500\,\mu\mathrm{m}$. The domain was discretised into $201 \times 201$ grid points with uniform spacing in both directions. This grid allowed the carrier density to be calculated as a function of position and time.
-
-The optical excitation was modelled as a Gaussian pulse in both space and time. The spatial excitation was centred at $x = 0$ and $y = 0$. The beam waist was set to $100\,\mu\mathrm{m}$. The spatial Gaussian profile followed the form
 \begin{equation}
     \exp\!\left[-\frac{2(x^2 + y^2)}{w_0^2}\right],
 \end{equation}
-where $w_0$ represents the beam waist. The temporal excitation was also Gaussian, and the pulse peak was located at $t = 0$. In the MATLAB implementation, the pulse-width parameter was set to $0.1\,\mathrm{ps}$. The simulation time range was from $-1\,\mathrm{ps}$ to $100\,\mathrm{ps}$. This time window included both the initial ultrafast excitation stage and the later diffusion-recombination stage.
 
-The generation rate was calculated from the incident optical intensity, photon energy, absorption coefficient, and transmission through the air-InAs interface. The reflection coefficient at the interface was estimated using the refractive indices of air and InAs. Only the transmitted part of the optical intensity was used to generate carriers inside the semiconductor. This step linked the optical input to the generated carrier density in a physically meaningful way.
+where $w_0$ represents the beam waist. The temporal excitation was also Gaussian, and the pulse peak was located at $t = 0$. In the MATLAB implementation, the pulse-width parameter was set to $0.1\,\mathrm{ps}$. The simulation time range was from $-5\,\mathrm{ps}$ to $45\,\mathrm{ps}$. This time window included both the initial ultrafast excitation stage and the later diffusion-recombination stage. The generation rate was calculated from the incident optical intensity, photon energy, absorption coefficient, and transmission through the air-InAs interface. The reflection coefficient at the interface was estimated using the refractive indices of air and InAs. Only the transmitted part of the optical intensity was used to generate carriers inside the semiconductor. This step linked the optical input to the generated carrier density in a physically meaningful way. The carrier transport was described using the two dimensional diffusion recombination equation:
 
-The carrier transport was described using the two-dimensional diffusion-recombination equation:
 \begin{equation}
     \frac{\partial n}{\partial t} = D\nabla^2 n + G(x,y,t) - \frac{n}{\tau_r}
 \end{equation}
@@ -434,13 +427,12 @@ The resulting interface forms a complete front-end to the photocurrent simulatio
 %% RESULTS AND DISCUSSION
 %% ============================================================
 \section{Results}
-
 \subsection{Photo-Dember Model Results}
 \subsubsection{Carrier Dynamics and Diffusion Current Formation}
 
 The Photo-Dember simulation first examined the carrier dynamics using a diffusion-recombination model. A Gaussian optical excitation was applied in both space and time to represent the ultrafast laser pulse. The resulting carrier density evolution describes how the system responds immediately after excitation.
 
-\begin{figure}[H]
+\begin{figure}[t]
     \centering
     \includegraphics[width=0.6\linewidth]{interim_report_latex_template (1)/figure/yuhao/f1.png}
     \caption{Space-time evolution of the carrier density in the one-dimensional Photo-Dember model. The initial bright region corresponds to the optical excitation, and the later broadening shows carrier diffusion over time.}
@@ -451,7 +443,7 @@ The result shows that the carrier density rises rapidly near the pulse arrival t
 
 The simulation was then extended to two dimensions to capture the radial symmetry of the excitation spot. A circular Gaussian profile was used to represent the laser beam, and the carrier transport was solved in the $x$-$y$ plane. This extension allows the model to describe the formation of lateral diffusion currents.
 
-\begin{figure}[H]
+\begin{figure}[t]
     \centering
     \includegraphics[width=0.9\linewidth]{interim_report_latex_template (1)/figure/yuhao/f2.png}
     \caption{Electron density distribution and diffusion current vectors in the two-dimensional Photo-Dember model. The current vectors point outward from the high-density centre, indicating radial diffusion.}
