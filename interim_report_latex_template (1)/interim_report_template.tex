@@ -389,7 +389,7 @@ The resulting interface forms a complete front-end to the photocurrent simulatio
 \subsection{Photo-Dember Model Results}
 \subsubsection{Carrier Dynamics and Diffusion Current Formation}
 
-The Photo-Dember simulation first examined the carrier dynamics using a diffusion-recombination model. A Gaussian optical excitation was applied in both space and time to represent the ultrafast laser pulse. The resulting carrier density evolution describes how the system responds immediately after excitation.
+The Photo-Dember simulation first examined the carrier dynamics using the diffusion recombination model described in Section~3.1. A Gaussian optical excitation was applied in both space and time to represent the ultrafast laser pulse. As shown in Figure~\ref{fig:pd_1d_density}, the carrier density rises rapidly near the pulse arrival time and then decreases gradually after reaching its peak. The spatial distribution becomes broader over time as diffusion spreads the carrier population away from the excitation centre, consistent with the expected diffusion and recombination processes in semiconductors.
 
 \begin{figure}[t]
     \centering
@@ -398,9 +398,7 @@ The Photo-Dember simulation first examined the carrier dynamics using a diffusio
     \label{fig:pd_1d_density}
 \end{figure}
 
-The result shows that the carrier density rises rapidly near the pulse arrival time. The carrier density then decreases gradually after reaching its peak. The spatial distribution becomes broader as time increases, which indicates that diffusion spreads the carrier population away from the excitation centre. This behaviour is consistent with the expected diffusion and recombination processes in semiconductors.
-
-The simulation was then extended to two dimensions to capture the radial symmetry of the excitation spot. A circular Gaussian profile was used to represent the laser beam, and the carrier transport was solved in the $x$-$y$ plane. This extension allows the model to describe the formation of lateral diffusion currents.
+The simulation was then extended to two dimensions to capture the radial symmetry of the excitation spot, using a circular Gaussian profile for the laser beam and solving the carrier transport in the $x$-$y$ plane. As shown in Figure~\ref{fig:pd_2d_current}, the calculated current vectors point radially outward from the high density centre, reflecting the diffusion of carriers toward lower density regions. The current is strongest shortly after excitation, when the carrier density gradient is largest, and weakens at later times as the distribution becomes more uniform. The strongest current does not occur at the exact centre, where the density gradient is close to zero, but rather at the flanks of the Gaussian distribution where the density changes most rapidly.
 
 \begin{figure}[t]
     \centering
@@ -409,11 +407,7 @@ The simulation was then extended to two dimensions to capture the radial symmetr
     \label{fig:pd_2d_current}
 \end{figure}
 
-The calculated current vectors point outward from the high-density region. This pattern reflects the diffusion of carriers from the excitation centre toward lower-density regions. The current is strongest shortly after excitation, when the carrier density gradient is largest. The current becomes weaker at later times because the spatial distribution becomes more uniform and the gradient decreases.
-
-The simulation also shows that the strongest current does not occur exactly at the centre of the excitation. Instead, the current is largest in the region where the carrier density changes most rapidly. The Gaussian excitation profile produces the steepest gradient at the edges of the carrier distribution, which explains this behaviour.
-
-These results demonstrate that ultrafast optical excitation produces a transient diffusion current through carrier redistribution. This current provides the physical source of THz emission in the Photo-Dember mechanism. The next section therefore evaluates whether the far-field THz radiation generated from this current agrees with experimental observations.
+These results demonstrate that ultrafast optical excitation produces a transient diffusion current through carrier redistribution, providing the physical source of THz emission in the Photo-Dember mechanism. The next section evaluates whether the far field THz radiation generated from this current agrees with experimental observations.
 
 \subsubsection{Far-field THz Angular Emission Validation}
 The Photo-Dember effect arises from the ultrafast lateral diffusion of photo-generated carriers following femtosecond laser excitation. Because electrons have a significantly higher mobility than holes, they diffuse outward faster, creating a transient charge separation and a net radial photocurrent $\mathbf{J} = q(D_e - D_h)\nabla n$ that radiates THz electromagnetic waves. The simulation results presented in this section validate the Photo-Dember transport model by comparing the angular emission pattern with published experimental data.
