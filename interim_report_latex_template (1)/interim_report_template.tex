@@ -393,7 +393,7 @@ The Photo-Dember simulation first examined the carrier dynamics using the diffus
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.6\linewidth]{interim_report_latex_template (1)/figure/yuhao/f1.png}
+    \includegraphics[width=0.75\linewidth]{interim_report_latex_template (1)/figure/yuhao/f1.png}
     \caption{Space-time evolution of the carrier density in the one-dimensional Photo-Dember model. The initial bright region corresponds to the optical excitation, and the later broadening shows carrier diffusion over time.}
     \label{fig:pd_1d_density}
 \end{figure}
@@ -402,7 +402,7 @@ The simulation was then extended to two dimensions to capture the radial symmetr
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.9\linewidth]{interim_report_latex_template (1)/figure/yuhao/f2.png}
+    \includegraphics[width=0.85\linewidth]{interim_report_latex_template (1)/figure/yuhao/f2.png}
     \caption{Electron density distribution and diffusion current vectors in the two-dimensional Photo-Dember model. The current vectors point outward from the high-density centre, indicating radial diffusion.}
     \label{fig:pd_2d_current}
 \end{figure}
@@ -435,7 +435,7 @@ The corrected values were then normalised by their maximum:
 
 Table~\ref{tab:angular} lists the distance-corrected and normalised peak-to-peak amplitudes for 19 observation angles spanning $18^\circ$ to $90^\circ$. The resulting angular emission pattern is plotted in Figure~\ref{fig:angular_sim}.
 
-\begin{table}[h]
+\begin{table}[t]
 \centering
 \caption{Distance-corrected and normalised far-field peak-to-peak amplitude $E_{\mathrm{pp}}$ using the $E_z$ component. The maximum corrected amplitude occurs at $\theta_1 = 25^\circ$.}
 \label{tab:angular}
@@ -459,7 +459,7 @@ $\theta_1$ (deg) & $E_{\mathrm{pp,corr}}$ & $E_{\mathrm{pp,norm}}$ \\
 \end{tabular}
 \end{table}
 
-\begin{figure}[b]
+\begin{figure}[t]
     \centering
     \includegraphics[width=0.6\linewidth]{interim_report_latex_template (1)/figure/yaoqqi/different_observation_angles.png}
     \caption{Simulated time-domain THz waveforms detected at selected observation angles. The $E_z$ component was used as the detector-like signal.
@@ -469,7 +469,7 @@ $\theta_1$ (deg) & $E_{\mathrm{pp,corr}}$ & $E_{\mathrm{pp,norm}}$ \\
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.55\linewidth]{interim_report_latex_template (1)/figure/yaoqqi/result1.png}
+    \includegraphics[width=0.65\linewidth]{interim_report_latex_template (1)/figure/yaoqqi/result1.png}
     \caption{
         Simulated far-field angular emission pattern. The normalised peak-to-peak amplitude $E_{\mathrm{pp,norm}}$ is plotted as a function of the emission angle $\theta_1$ from the surface normal.
     }
@@ -488,53 +488,50 @@ The built-in field model was used to study how a surface depletion field affects
 
 \subsubsection{Field Profile and Carrier Separation}
 
-The simulation first defined the built-in electric field near the semiconductor surface. As shown in Figure~\ref{fig:built_in_field_profile}, the electric field was strongest at the surface and gradually decreased to zero at the depletion edge. This profile represented a simplified surface depletion region.
+Figure~\ref{fig:built_in_overview} summarises the built-in field simulation results. The prescribed electric field profile (Figure~\ref{fig:built_in_field_profile}) was strongest at the surface and decayed smoothly to zero at the depletion edge, providing a clear driving force for carrier motion along the depth direction without a sharp discontinuity at the boundary.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.65\linewidth]{interim_report_latex_template (1)/figure/yuhao/1.png}
-    \caption{Prescribed built-in electric field profile in the depletion region. The electric field is strongest near the surface and smoothly decays to zero at the depletion edge.}
-    \label{fig:built_in_field_profile}
-\end{figure}
-
-This field distribution provided a clear driving force for carrier motion along the depth direction. The smooth decay of the field also avoided a sharp discontinuity at the depletion boundary. This setup allowed the simulation to isolate the effect of field-driven transport.
-
-The simulation then examined the electron and hole density distributions after optical excitation. As shown in Figure~\ref{fig:built_in_carrier_separation}, the electron distribution shifted further into the material, while the hole density remained stronger near the surface.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.65\linewidth]{interim_report_latex_template (1)/figure/yuhao/2.png}
-    \caption{Electron and hole density distributions in the built-in field model. The electron distribution shifts further into the material, while the hole density remains stronger near the surface.}
-    \label{fig:built_in_carrier_separation}
-\end{figure}
-
-This result showed that the built-in electric field drove electrons and holes in opposite directions. The field provided a preferred transport direction along the $z$ axis. This behaviour differed from the Photo-Dember model, where carrier motion was mainly radial and symmetric. The separation between electrons and holes became clear shortly after the optical pulse. This separation became less pronounced at later times because recombination reduced the carrier density.
+After optical excitation, the electron distribution shifted further into the material while the hole density remained stronger near the surface (Figure~\ref{fig:built_in_carrier_separation}), confirming that the built-in field drove the two carrier types in opposite directions along the $z$ axis. This behaviour differs from the Photo-Dember model, where carrier motion is mainly radial and symmetric. The separation became clear shortly after the optical pulse and grew less pronounced at later times as recombination reduced the carrier density.
 
 \subsubsection{Carrier Dynamics and Photocurrent}
 
-The simulation also calculated the total number of electrons and holes over time. As shown in Figure~\ref{fig:built_in_total_carrier_number}, the total numbers remained almost equal throughout the simulation.
+The total numbers of electrons and holes remained almost equal throughout the simulation (Figure~\ref{fig:built_in_total_carrier_number}), consistent with pair generation and pair recombination. The key result was not the total number itself, but the spatial separation between the two carrier types.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.65\linewidth]{interim_report_latex_template (1)/figure/yuhao/3.png}
-    \caption{Integrated electron and hole numbers as a function of time. The two curves remain close to each other, which is consistent with pair generation and pair recombination.}
-    \label{fig:built_in_total_carrier_number}
+The built-in field produced a transient photocurrent by separating carriers along the depth direction. As shown in Figure~\ref{fig:built_in_photocurrent}, the photocurrent rose rapidly when the optical pulse reached its peak, because many carriers were generated and immediately separated by the depletion field. The current then decreased gradually as recombination reduced the carrier population and the spatial distribution became more uniform. The fast rise and decay of this current confirmed that the built-in field can produce an ultrafast transient photocurrent suitable for driving THz emission.
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{interim_report_latex_template (1)/figure/yuhao/1.png}
+		\caption{Built-in electric field profile}
+		\label{fig:built_in_field_profile}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{interim_report_latex_template (1)/figure/yuhao/2.png}
+		\caption{Electron and hole density distributions}
+		\label{fig:built_in_carrier_separation}
+	\end{subfigure}
+
+	\vspace{0.5em}
+
+	\begin{subfigure}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{interim_report_latex_template (1)/figure/yuhao/3.png}
+		\caption{Integrated electron and hole numbers}
+		\label{fig:built_in_total_carrier_number}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[t]{0.48\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{interim_report_latex_template (1)/figure/yuhao/4.png}
+		\caption{Transient photocurrent}
+		\label{fig:built_in_photocurrent}
+	\end{subfigure}
+	\caption{Built-in field model results. (a)~Prescribed electric field profile in the depletion region. (b)~Electron and hole density distributions showing field driven separation. (c)~Integrated carrier numbers confirming pair generation and recombination. (d)~Transient photocurrent generated by the surface depletion field.}
+	\label{fig:built_in_overview}
 \end{figure}
-
-This behaviour was physically consistent with pair generation. The optical excitation created electrons and holes together, and recombination removed them in pairs. Therefore, the simulation did not produce a large imbalance in the total carrier number. The key result was not the total number itself, but the spatial separation between electrons and holes.
-
-The built-in field produced a transient photocurrent by separating carriers along the depth direction. The simulation calculated the total photocurrent as a function of time. As shown in Figure~\ref{fig:built_in_photocurrent}, the photocurrent rose rapidly when the optical pulse reached its peak.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.65\linewidth]{interim_report_latex_template (1)/figure/yuhao/4.png}
-    \caption{Transient photocurrent generated by the built-in field in the surface depletion region.}
-    \label{fig:built_in_photocurrent}
-\end{figure}
-
-This rapid increase occurred because many carriers were generated within a short time. The built-in field then separated these carriers along the depth direction, which produced a strong current response. The photocurrent reached its maximum magnitude shortly after the pulse peak. The current then decreased gradually because recombination reduced the number of carriers. The carrier distribution also became broader over time, which reduced the overall current density.
-
-The sign of the photocurrent depended on the reference direction defined in the simulation. The sign itself was therefore not the main focus. The important feature was the fast rise and decay of the current. This result confirmed that the built-in field can produce an ultrafast transient photocurrent before the later THz field calculation.
 
 \subsubsection{Bipolar Pulse Waveform}
 The far field radiation from any transient current source is proportional to $\dot{\mathbf{J}}(t_{\mathrm{ret}})$, the time derivative of the current density evaluated at the retarded time (Equation~\ref{eq:farfield}). For the built-in field mechanism, the vertical surge current $J_z(t)$ follows the temporal profile of the carrier density: it rises rapidly during the femtosecond laser excitation as carriers are photo generated and accelerated by the depletion field, then decays on a longer timescale as the carriers recombine and the depletion field is screened by charge separation. The time derivative $\dot{J}_z(t)$ is therefore positive during the rising phase and negative during the falling phase, producing a bipolar radiated pulse with a leading positive lobe followed by a trailing negative lobe. This characteristic waveform was first predicted by the Hertzian dipole model of Auston et al.~\cite{auston_picosecond_1984} and has since been confirmed in both Monte Carlo simulations of GaAs surface emission~\cite{SimulationTHz} and experimental THz time domain measurements~\cite{Reklaitis2010}.
