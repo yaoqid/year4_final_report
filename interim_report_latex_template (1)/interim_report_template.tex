@@ -94,19 +94,7 @@ where $D_e$ and $D_h$ are the electron and hole diffusion coefficients, and $n$ 
 
 Equation~\ref{eq:photo_dember_current} shows that the net Photo-Dember current depends on the difference between electron and hole diffusion. If electrons diffuse faster than holes, the electron contribution dominates the transient current. This transient current is the central link between the carrier transport model and the terahertz radiation model. The carrier density itself does not directly radiate a strong terahertz field. Instead, the rapidly changing current produced by carrier redistribution acts as the electromagnetic source~\cite{Tonouchi2020,Pettine2023}.
 
-The final step of the Photo-Dember mechanism is the radiation of a terahertz electromagnetic pulse. According to classical electrodynamics, a steady current does not radiate efficiently. Radiation is produced when the current changes rapidly with time. Therefore, the emitted terahertz field is mainly related to the time derivative of the transient photocurrent:
-\begin{equation}
-    \mathbf{E}_{\mathrm{THz}}(t)
-    \propto
-    \frac{\partial \mathbf{J}(t)}{\partial t}.
-    \label{eq:thz_current_derivative}
-\end{equation}
-
-Equation~\ref{eq:thz_current_derivative} explains why ultrafast carrier motion is essential for THz generation. A slowly varying current would produce little radiation in the THz range. A sub picosecond photocurrent, however, can generate a broadband THz pulse because it changes very rapidly in time~\cite{Tonouchi2020,Pettine2023}.
-
-In this project, this relationship is important because the Photo-Dember simulation provides the current source for the later electric field calculation. The numerical model first calculates how the carrier density evolves after the ultrafast optical pulse. It then obtains the diffusion current from the carrier density gradient. Finally, the time derivative of this current is used as the source term for the terahertz radiation calculation.
-
-This sequence explains the physical route from the Photo-Dember effect to THz wave generation. The laser pulse creates a localised carrier population. The mobility difference between electrons and holes causes unequal diffusion. The unequal diffusion produces a transient current. The rapid time variation of this current then radiates a broadband terahertz pulse. Therefore, the Photo-Dember effect provides a complete mechanism that links ultrafast carrier dynamics with terahertz emission from semiconductor surfaces~\cite{Tonouchi2020,Heroux2017,Pettine2023}.
+This transient diffusion current serves as the source for THz radiation. The electrodynamic framework linking the time derivative of the photocurrent to the radiated far field is presented in Section~2.3. In summary, the laser pulse creates a localised carrier population, the mobility difference between electrons and holes causes unequal diffusion, and the resulting rapidly varying current radiates a broadband terahertz pulse~\cite{Tonouchi2020,Heroux2017,Pettine2023}.
 
 \subsection{Built-in Field Effect}
 \subsubsection{Depletion Field and Carrier Drift}
@@ -138,14 +126,7 @@ Equation~\ref{eq:drift_current_density} shows that the drift current is largest 
 
 The total drift current density observed in the far field is obtained by integrating the local contribution along the depth coordinate over the depletion region, since the radiating source spans the full extent of the field-driven transport region rather than a single plane~\cite{SimulationTHz}.
 
-Following the same electrodynamic principles that apply to the Photo-Dember mechanism, the rapidly varying surface drift current acts as a source of terahertz radiation. The radiated electric field is proportional to the time derivative of the drift current,
-\begin{equation}
-    \mathbf{E}_{\mathrm{THz}}(t) \propto \frac{\partial \mathbf{J}_{\mathrm{drift}}(t)}{\partial t},
-    \label{eq:builtin_thz_field}
-\end{equation}
-so that only the rapid sub picosecond component of the current contributes appreciably to the radiated pulse. The early rise of the current, governed by the ultrafast carrier generation rate, produces the leading edge of the THz waveform, while the subsequent decay of the current generates the trailing portion of the pulse~\cite{auston_picosecond_1984,Pettine2023}.
-
-The vertical orientation of the drift current has consequences for the polarisation of the emitted radiation. Because the source current points along the surface normal, the radiated far field is linearly polarised in the plane of incidence. This polarisation behaviour distinguishes the built-in field mechanism from the Photo-Dember mechanism, which produces radially polarised emission as a consequence of its in-plane diffusive current~\cite{YangTonouchi2022,SimulationTHz}.
+As with the Photo-Dember mechanism, the rapidly varying drift current radiates terahertz energy through the retarded potential framework described in Section~2.3. The vertical orientation of the drift current has consequences for the polarisation of the emitted radiation. Because the source current points along the surface normal, the radiated far field is linearly polarised in the plane of incidence. This polarisation behaviour distinguishes the built-in field mechanism from the Photo-Dember mechanism, which produces radially polarised emission as a consequence of its in-plane diffusive current~\cite{YangTonouchi2022,SimulationTHz}.
 
 The relative importance of the built-in field effect and the Photo-Dember effect depends on the material system. In wide band gap III\,V semiconductors with strong surface Fermi level pinning, such as GaAs and InP, the built-in field effect typically dominates the THz emission~\cite{auston_picosecond_1984,SimulationTHz}. In narrow band gap materials such as InAs and Fe:InGaAs, the surface band bending is weaker and the Photo-Dember mechanism becomes the dominant source of radiation~\cite{Reklaitis2010}. Both mechanisms can coexist in a given material, and their combined contribution determines the amplitude, polarisation, and waveform of the emitted terahertz pulse.
 
