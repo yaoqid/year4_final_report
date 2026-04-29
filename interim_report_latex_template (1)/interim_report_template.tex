@@ -47,29 +47,21 @@ Despite the maturity of the underlying physics, openly available simulation tool
 \subsection{Photo-Dember Effect}
 \subsubsection{Carrier Generation and Diffusion}
 
-The Photo-Dember effect starts when an ultrafast laser pulse excites the semiconductor surface. In this project, the semiconductor material is InAs, and the laser pulse is described as a short Gaussian excitation in both space and time. When the semiconductor absorbs the photon energy, it generates electron hole pairs near the illuminated surface. This process occurs on a femtosecond to picosecond timescale, so the initial carrier distribution is highly localised and far from equilibrium~\cite{Tonouchi2020,Heroux2017}.
-
-The optical generation term can be described as
+The Photo-Dember effect starts when an ultrafast laser pulse excites the semiconductor surface. In this project, the semiconductor material is InAs, and the laser pulse is described as a short Gaussian excitation in both space and time. When the semiconductor absorbs the photon energy, it generates electron hole pairs near the illuminated surface. This process occurs on a femtosecond to picosecond timescale, so the initial carrier distribution is highly localised and far from equilibrium~\cite{Tonouchi2020,Heroux2017}. The optical generation term can be described as
 \begin{equation}
     G(x,y,t) = G_0
     \exp\left[-\frac{x^2+y^2}{w_0^2}\right]
     \exp\left[-\frac{(t-t_0)^2}{2\sigma_t^2}\right],
     \label{eq:gaussian_generation}
 \end{equation}
-where $G_0$ is the peak carrier generation rate, $w_0$ is the beam waist, $t_0$ is the pulse centre time, and $\sigma_t$ is the temporal pulse width.
+where $G_0$ is the peak carrier generation rate, $w_0$ is the beam waist, $t_0$ is the pulse centre time, and $\sigma_t$ is the temporal pulse width. Equation~\ref{eq:gaussian_generation} shows that the carrier generation is strongest at the centre of the laser spot and around the pulse peak time. A stronger and more localised optical excitation produces a larger carrier density gradient, which later becomes the driving force for carrier diffusion. Therefore, the optical excitation profile directly affects the strength and shape of the transient current that can radiate terahertz waves~\cite{Tonouchi2020,NavarroCia2016}.
 
-Equation~\ref{eq:gaussian_generation} shows that the carrier generation is strongest at the centre of the laser spot and around the pulse peak time. This stage is important because it defines the initial source of the later photocurrent. A stronger and more localised optical excitation produces a larger carrier density gradient. This gradient later becomes the driving force for carrier diffusion. Therefore, the optical excitation profile directly affects the strength and shape of the transient current that can radiate terahertz waves~\cite{Tonouchi2020,NavarroCia2016}.
-
-After the electron hole pairs are generated, the carriers begin to move away from the excitation region. In the Photo-Dember effect, electrons and holes do not diffuse at the same speed. In most semiconductors, electrons have higher mobility than holes. The Einstein relation links the carrier mobility to the diffusion coefficient:
+After the electron hole pairs are generated, the carriers begin to move away from the excitation region. In the Photo-Dember effect, electrons and holes do not diffuse at the same speed because electrons have higher mobility than holes in most semiconductors. The Einstein relation links the carrier mobility to the diffusion coefficient:
 \begin{equation}
     D = \mu \frac{k_B T}{q},
     \label{eq:einstein_relation}
 \end{equation}
-where $D$ is the diffusion coefficient, $\mu$ is the carrier mobility, $k_B$ is the Boltzmann constant, $T$ is the absolute temperature, and $q$ is the elementary charge.
-
-Equation~\ref{eq:einstein_relation} shows that a higher mobility gives a higher diffusion coefficient at the same temperature. Therefore, electrons usually spread out more quickly than holes after photo excitation~\cite{Heroux2017,Lu2022}.
-
-This unequal diffusion creates a temporary spatial separation between negative and positive charges. Electrons move farther away from the excitation centre, while holes remain more localised near the original generation region. This charge separation is the physical origin of the Photo-Dember field and the associated photocurrent. InAs is suitable for this mechanism because its electron mobility is much higher than its hole mobility. This mobility difference can enhance diffusion-driven carrier separation after femtosecond excitation~\cite{Heroux2017,Lu2022}.
+where $D$ is the diffusion coefficient, $\mu$ is the carrier mobility, $k_B$ is the Boltzmann constant, $T$ is the absolute temperature, and $q$ is the elementary charge. A higher mobility gives a higher diffusion coefficient at the same temperature, so electrons usually spread out more quickly than holes after photo excitation~\cite{Heroux2017,Lu2022}. This unequal diffusion creates a temporary spatial separation between negative and positive charges. Electrons move farther away from the excitation centre, while holes remain more localised near the original generation region. This charge separation is the physical origin of the Photo-Dember field and the associated photocurrent. InAs is suitable for this mechanism because its electron mobility is much higher than its hole mobility, which enhances diffusion driven carrier separation after femtosecond excitation~\cite{Heroux2017,Lu2022}.
 
 \subsubsection{Transient Photocurrent and THz Radiation}
 
@@ -78,11 +70,7 @@ The unequal diffusion of electrons and holes produces a transient photocurrent. 
     \mathbf{J}_{\mathrm{diff}} = qD\nabla n,
     \label{eq:diffusion_current}
 \end{equation}
-where $\mathbf{J}_{\mathrm{diff}}$ is the diffusion current density, $n$ is the carrier density, and $\nabla n$ is the carrier density gradient.
-
-Equation~\ref{eq:diffusion_current} shows that the current is strongest where the carrier density changes most rapidly with position. For a Gaussian laser spot, carriers move from the high density excitation region towards the surrounding low density region. As a result, the diffusion current points radially outward from the centre of the beam~\cite{Tonouchi2020,NavarroCia2016}.
-
-The current is not strongest at the exact centre of the laser spot. At the centre, the carrier density is high, but the density gradient is close to zero. The strongest current appears around the flanks of the Gaussian distribution, where the carrier density changes most rapidly with position. This explains why the simulated current vectors in the two dimensional model point outward and why the strongest current region appears away from the exact centre.
+where $\mathbf{J}_{\mathrm{diff}}$ is the diffusion current density, $n$ is the carrier density, and $\nabla n$ is the carrier density gradient. The current is strongest where the carrier density changes most rapidly with position. For a Gaussian laser spot, carriers move from the high density excitation region towards the surrounding low density region, so the diffusion current points radially outward from the centre of the beam~\cite{Tonouchi2020,NavarroCia2016}. Notably, the current is not strongest at the exact centre of the laser spot, where the carrier density is high but the density gradient is close to zero. Instead, the strongest current appears around the flanks of the Gaussian distribution, where the carrier density changes most rapidly with position.
 
 For a more complete electron hole description, the Photo-Dember current can also be expressed as
 \begin{equation}
@@ -90,18 +78,12 @@ For a more complete electron hole description, the Photo-Dember current can also
     q\left(D_e\nabla n - D_h\nabla p\right),
     \label{eq:photo_dember_current}
 \end{equation}
-where $D_e$ and $D_h$ are the electron and hole diffusion coefficients, and $n$ and $p$ are the electron and hole densities.
-
-Equation~\ref{eq:photo_dember_current} shows that the net Photo-Dember current depends on the difference between electron and hole diffusion. If electrons diffuse faster than holes, the electron contribution dominates the transient current. This transient current is the central link between the carrier transport model and the terahertz radiation model. The carrier density itself does not directly radiate a strong terahertz field. Instead, the rapidly changing current produced by carrier redistribution acts as the electromagnetic source~\cite{Tonouchi2020,Pettine2023}.
-
-This transient diffusion current serves as the source for THz radiation. The electrodynamic framework linking the time derivative of the photocurrent to the radiated far field is presented in Section~2.3. In summary, the laser pulse creates a localised carrier population, the mobility difference between electrons and holes causes unequal diffusion, and the resulting rapidly varying current radiates a broadband terahertz pulse~\cite{Tonouchi2020,Heroux2017,Pettine2023}.
+where $D_e$ and $D_h$ are the electron and hole diffusion coefficients, and $n$ and $p$ are the electron and hole densities. The net Photo-Dember current depends on the difference between electron and hole diffusion, so when electrons diffuse faster than holes, the electron contribution dominates the transient current. The carrier density itself does not directly radiate a strong terahertz field; instead, the rapidly changing current produced by carrier redistribution acts as the electromagnetic source~\cite{Tonouchi2020,Pettine2023}. The electrodynamic framework linking the time derivative of the photocurrent to the radiated far field is presented in Section~2.3.
 
 \subsection{Built-in Field Effect}
 \subsubsection{Depletion Field and Carrier Drift}
 
-The built-in field effect provides a second mechanism through which ultrafast photocurrents can radiate terahertz waves from semiconductor surfaces. At the free surface of a semiconductor, the abrupt termination of the periodic crystal lattice introduces dangling bonds and surface states within the band gap. These states trap charge carriers from the bulk and pin the Fermi level near the middle of the band gap, regardless of the bulk doping concentration~\cite{SimulationTHz,Pettine2023}. The redistribution of charge between the surface states and the bulk produces a depletion region near the surface, in which a static electric field develops along the depth direction.
-
-The width of the depletion region $W_{\mathrm{dep}}$ and the magnitude of the built-in field $E_{\mathrm{bi}}$ depend on the doping density, the position of the pinned Fermi level, and the band gap energy of the material. For typical III\,V semiconductors such as GaAs and InP, the depletion width lies in the range of a few tens to a few hundreds of nanometres, and the peak field magnitude can reach $10^{5}$\,V/m to $10^{6}$\,V/m near the surface~\cite{SimulationTHz}. In the simplest one dimensional approximation, the depletion field decays smoothly from its peak value at the surface to zero at the depletion edge, where the semiconductor recovers its bulk neutral condition.
+The built-in field effect provides a second mechanism through which ultrafast photocurrents can radiate terahertz waves from semiconductor surfaces. At the free surface of a semiconductor, the abrupt termination of the periodic crystal lattice introduces dangling bonds and surface states within the band gap. These states trap charge carriers from the bulk and pin the Fermi level near the middle of the band gap, regardless of the bulk doping concentration~\cite{SimulationTHz,Pettine2023}. The redistribution of charge between the surface states and the bulk produces a depletion region near the surface, in which a static electric field develops along the depth direction. The width of the depletion region $W_{\mathrm{dep}}$ and the magnitude of the built-in field $E_{\mathrm{bi}}$ depend on the doping density, the position of the pinned Fermi level, and the band gap energy of the material. For typical III\,V semiconductors such as GaAs and InP, the depletion width lies in the range of a few tens to a few hundreds of nanometres, and the peak field magnitude can reach $10^{5}$\,V/m to $10^{6}$\,V/m near the surface~\cite{SimulationTHz}. In the simplest one dimensional approximation, the depletion field decays smoothly from its peak value at the surface to zero at the depletion edge, where the semiconductor recovers its bulk neutral condition.
 
 When a femtosecond optical pulse is absorbed near the surface, electron\,hole pairs are generated within the depletion region. The static built-in field then exerts opposite forces on the two carrier types. In an n type or intrinsic semiconductor with downward surface band bending, electrons are accelerated towards the bulk while holes are accelerated towards the surface. The drift velocities can be written as
 \begin{equation}
@@ -109,9 +91,7 @@ When a femtosecond optical pulse is absorbed near the surface, electron\,hole pa
     \mathbf{v}_p = \mu_p \mathbf{E}_{\mathrm{bi}},
     \label{eq:drift_velocities}
 \end{equation}
-where $\mu_n$ and $\mu_p$ are the electron and hole mobilities, respectively. The opposite drift directions produce a vertical separation of charge along the depth coordinate $z$, with electrons accumulating at greater depths and holes remaining closer to the surface~\cite{auston_picosecond_1984,SimulationTHz}.
-
-This carrier separation occurs on a sub picosecond timescale, since the photo generated carriers respond to the local field almost as soon as they are created. The resulting motion is markedly different from the lateral diffusion described in the Photo-Dember mechanism. Whereas the Photo-Dember effect produces a radial in-plane current driven by carrier density gradients, the built-in field effect produces a directed vertical current along the surface normal~\cite{Pettine2023,YangTonouchi2022}.
+where $\mu_n$ and $\mu_p$ are the electron and hole mobilities, respectively. The opposite drift directions produce a vertical separation of charge along the depth coordinate $z$, with electrons accumulating at greater depths and holes remaining closer to the surface~\cite{auston_picosecond_1984,SimulationTHz}. This carrier separation occurs on a sub picosecond timescale, since the photo generated carriers respond to the local field almost as soon as they are created. Whereas the Photo-Dember effect produces a radial in plane current driven by carrier density gradients, the built-in field effect produces a directed vertical current along the surface normal~\cite{Pettine2023,YangTonouchi2022}.
 
 \subsubsection{Drift Current and THz Radiation}
 
@@ -120,15 +100,9 @@ The drift of photo generated electrons and holes in the depletion field produces
     \mathbf{J}_{\mathrm{drift}}(z,t) = q\left[\mu_n n(z,t) + \mu_p p(z,t)\right] \mathbf{E}_{\mathrm{bi}}(z),
     \label{eq:drift_current_density}
 \end{equation}
-where $n(z,t)$ and $p(z,t)$ are the electron and hole densities. Because both carriers contribute additively to the conduction current, the magnitude of the drift current scales with the total photo-generated carrier density and with the strength of the local depletion field.
+where $n(z,t)$ and $p(z,t)$ are the electron and hole densities. Because both carriers contribute additively to the conduction current, the magnitude of the drift current scales with the total photo generated carrier density and with the strength of the local depletion field. The drift current is therefore largest near the surface, where both the carrier density and the built-in field reach their maximum values~\cite{SimulationTHz}. As carriers move away from the surface, the field weakens and the local current density decreases. The temporal evolution of the current follows the rapid generation of carriers during the laser pulse, followed by a slower decay governed by carrier recombination, diffusion away from the high field region, and screening of the depletion field by the separated charges themselves~\cite{Malevich2021}. The total drift current observed in the far field is obtained by integrating the local contribution along the depth coordinate over the depletion region, since the radiating source spans the full extent of the field driven transport region rather than a single plane~\cite{SimulationTHz}.
 
-Equation~\ref{eq:drift_current_density} shows that the drift current is largest near the surface, where both the carrier density and the built-in field reach their maximum values~\cite{SimulationTHz}. As carriers move away from the surface, the field weakens and the local current density decreases. The temporal evolution of the current follows the rapid generation of carriers during the laser pulse, followed by a slower decay governed by carrier recombination, diffusion away from the high field region, and screening of the depletion field by the separated charges themselves~\cite{Malevich2021}.
-
-The total drift current density observed in the far field is obtained by integrating the local contribution along the depth coordinate over the depletion region, since the radiating source spans the full extent of the field-driven transport region rather than a single plane~\cite{SimulationTHz}.
-
-As with the Photo-Dember mechanism, the rapidly varying drift current radiates terahertz energy through the retarded potential framework described in Section~2.3. The vertical orientation of the drift current has consequences for the polarisation of the emitted radiation. Because the source current points along the surface normal, the radiated far field is linearly polarised in the plane of incidence. This polarisation behaviour distinguishes the built-in field mechanism from the Photo-Dember mechanism, which produces radially polarised emission as a consequence of its in-plane diffusive current~\cite{YangTonouchi2022,SimulationTHz}.
-
-The relative importance of the built-in field effect and the Photo-Dember effect depends on the material system. In wide band gap III\,V semiconductors with strong surface Fermi level pinning, such as GaAs and InP, the built-in field effect typically dominates the THz emission~\cite{auston_picosecond_1984,SimulationTHz}. In narrow band gap materials such as InAs and Fe:InGaAs, the surface band bending is weaker and the Photo-Dember mechanism becomes the dominant source of radiation~\cite{Reklaitis2010}. Both mechanisms can coexist in a given material, and their combined contribution determines the amplitude, polarisation, and waveform of the emitted terahertz pulse.
+As with the Photo-Dember mechanism, the rapidly varying drift current radiates terahertz energy through the retarded potential framework described in Section~2.3. Because the source current points along the surface normal, the radiated far field is linearly polarised in the plane of incidence. This polarisation behaviour distinguishes the built-in field mechanism from the Photo-Dember mechanism, which produces radially polarised emission as a consequence of its in plane diffusive current~\cite{YangTonouchi2022,SimulationTHz}. The relative importance of the two mechanisms depends on the material system. In wide band gap III\,V semiconductors with strong surface Fermi level pinning, such as GaAs and InP, the built-in field effect typically dominates the THz emission~\cite{auston_picosecond_1984,SimulationTHz}. In narrow band gap materials such as InAs and Fe:InGaAs, the surface band bending is weaker and the Photo-Dember mechanism becomes the dominant source of radiation~\cite{Reklaitis2010}. Both mechanisms can coexist in a given material, and their combined contribution determines the amplitude, polarisation, and waveform of the emitted terahertz pulse.
 
 \subsection{Electric Field Theory}
 \subsubsection{Retarded Potentials and Jefimenko's Equations}
@@ -138,9 +112,7 @@ The electric field at an observation point $\mathbf{r}$ due to a time varying so
 \begin{equation}
     t_{\mathrm{ret}} = t - \frac{R}{c},
 \end{equation}
-where $R = |\mathbf{r} - \mathbf{r}'|$ is the distance from the source point $\mathbf{r}'$ to the observation point $\mathbf{r}$, and $c$ is the speed of light.
-
-The full Jefimenko expression for the electric field contains three terms: a Coulomb term proportional to $1/R^3$, an induction term proportional to $1/R^2$, and a radiation term proportional to $1/R$. In the far field regime, where the observation distance is much larger than the spatial extent of the source ($R \gg d$), the $1/R^3$ and $1/R^2$ terms become negligible. The dominant radiative contribution is then
+where $R = |\mathbf{r} - \mathbf{r}'|$ is the distance from the source point $\mathbf{r}'$ to the observation point $\mathbf{r}$, and $c$ is the speed of light. The full Jefimenko expression for the electric field contains three terms: a Coulomb term proportional to $1/R^3$, an induction term proportional to $1/R^2$, and a radiation term proportional to $1/R$. In the far field regime, where the observation distance is much larger than the spatial extent of the source ($R \gg d$), the $1/R^3$ and $1/R^2$ terms become negligible. The dominant radiative contribution is then
 \begin{equation}
     \mathbf{E}(\mathbf{r}, t) \approx \frac{\mu_0}{4\pi} \iint_{S} \frac{\hat{\mathbf{R}} \times \left[\hat{\mathbf{R}} \times \dot{\mathbf{J}}(\mathbf{r}', t_{\mathrm{ret}})\right]}{R} \, dS',
     \label{eq:farfield}
