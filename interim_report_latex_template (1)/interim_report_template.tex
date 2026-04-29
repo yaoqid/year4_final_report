@@ -352,7 +352,7 @@ This rotation is applied to the cylindrical surface coordinates before rendering
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.85\linewidth]{interim_report_latex_template (1)/figure/shenglong/3d.png}
+    \includegraphics[width=0.65\linewidth]{interim_report_latex_template (1)/figure/shenglong/3d.png}
     \caption{
         Three-dimensional schematic produced by the geometry preview panel. The translucent slab represents the semiconductor surface, and the orange cylinder represents the incident laser beam after rotation about the $y$-axis by the configured incidence angle.
     }
@@ -361,9 +361,9 @@ This rotation is applied to the cylindrical surface coordinates before rendering
 
 The lower region of the application contains four output displays that are populated in sequence after the simulation engine returns. The \texttt{plotTransientCurrentGUI} method renders the central carrier density $n(0,0,t)$ as a temporal trace, which serves as a one-dimensional proxy for the integrated photocurrent. The \texttt{plotCarrierDistributionGUI} method displays the spatial distribution $n(x,y,t^*)$ at the time $t^*$ of peak central density, using \texttt{imagesc} with the $y$-axis direction reversed to match the physical convention. The \texttt{plotTHzFieldGUI} method populates a tabbed group with three separate axes for the $E_x$, $E_y$, and $E_z$ components of the radiated field at the user-specified observation point. Finally, \texttt{plotSpatialRadiationGUI} draws a quiver plot of the transverse field vectors $(E_x, E_y)$ on the observation plane using the coarse $11 \times 11$ grid produced by the \texttt{compute\_THz\_E\_spatial\_2D} routine, allowing the user to inspect the polarisation structure described in Section~3.3.
 
-\begin{figure}[t]
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.85\linewidth]{interim_report_latex_template (1)/figure/shenglong/complete.png}
+    \includegraphics[width=0.75\linewidth]{interim_report_latex_template (1)/figure/shenglong/complete.png}
     \caption{
         Complete GUI overview after a successful simulation run. The upper region shows the parameter tabs and the geometry preview. The lower region displays the central carrier density trace, the carrier distribution at peak time, and the radiated field at the chosen observation point.
     }
