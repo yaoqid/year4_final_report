@@ -256,7 +256,7 @@ The evaluation of Equation~(\ref{eq:discrete}) is carried out through a three st
     \centering
     \includegraphics[width=0.85\linewidth]{interim_report_latex_template (1)/figure/yaoqqi/figure_algorithm_flowchart.png}
     \caption{
-        Flowchart of the three-stage algorithm. Stage~1 differentiates $\mathbf{J}$ in time. Stage~2 maps retarded times and interpolates $\dot{\mathbf{J}}$. Stage~3 applies the BAC-CAB identity. All source contributions are summed to yield $\mathbf{E}(t)$.
+        Flowchart of the three-stage algorithm. Stage~1 differentiates $\mathbf{J}$ in time. Stage~2 maps retarded times and interpolates $\dot{\mathbf{J}}$. Stage~3 applies the vector triple product identity. All source contributions are summed to yield $\mathbf{E}(t)$.
     }
     \label{fig:flowchart}
 \end{figure}
@@ -300,11 +300,11 @@ The matrices \texttt{grid\_y} and \texttt{grid\_x} are pre computed using \textt
 \end{verbatim}
 This accesses the correct time slice for each spatial cell simultaneously without any loop.\newline
 A boolean validity mask \texttt{valid = (k1 >= 1) \& (k2 <= Nt)} identifies source cells whose retarded time falls within the simulation window. Cells outside this range are clamped using \texttt{max(1, min(Nt, k1))} to prevent array index errors during interpolation, and their contributions are subsequently zeroed out with \texttt{dJx\_ret(\textasciitilde valid) = 0}. This two step approach of clamping first and then masking avoids conditional branching within the vectorised computation while ensuring physically correct results.\newline
-The double cross product $\hat{\mathbf{R}} \times [\hat{\mathbf{R}} \times \dot{\mathbf{J}}]$ in Equation~(\ref{eq:discrete}) extracts the transverse component of the current acceleration relative to the line of sight. Rather than computing two sequential cross products, the implementation exploits the BAC-CAB vector identity:
+The double cross product $\hat{\mathbf{R}} \times [\hat{\mathbf{R}} \times \dot{\mathbf{J}}]$ in Equation~(\ref{eq:discrete}) extracts the transverse component of the current acceleration relative to the line of sight. Rather than computing two sequential cross products, the implementation uses the vector triple product identity $\mathbf{A} \times (\mathbf{B} \times \mathbf{C}) = \mathbf{B}(\mathbf{A} \cdot \mathbf{C}) - \mathbf{C}(\mathbf{A} \cdot \mathbf{B})$, which gives:
 \begin{equation}
     \hat{\mathbf{R}} \times [\hat{\mathbf{R}} \times \dot{\mathbf{J}}] = (\hat{\mathbf{R}} \cdot \dot{\mathbf{J}})\,\hat{\mathbf{R}} - \dot{\mathbf{J}},
 \end{equation}
-which reduces the operation to a single dot product and two vector scalings. In MATLAB, this is implemented as:
+where the second term simplifies because $\hat{\mathbf{R}} \cdot \hat{\mathbf{R}} = 1$. This reduces the operation to a single dot product and two vector scalings. In MATLAB, this is implemented as:
 \begin{verbatim}
     dJdot = Rhat_x.*dJx_ret + Rhat_y.*dJy_ret + Rhat_z.*dJz_ret;
     Tx = dJdot.*Rhat_x - dJx_ret;
